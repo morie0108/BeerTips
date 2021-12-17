@@ -156,9 +156,6 @@ export default {
 
 
 <style lang="scss" scoped>
-  .breadcrumbs{
-    padding-top: 80px;
-  }
   .discription{
     height: 100px;
     width: 90%;

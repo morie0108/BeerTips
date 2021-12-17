@@ -15,8 +15,8 @@
       >
         <v-row v-if="posts.length">
           <v-col
-            v-for="(post, i) in posts"
-            :key="i"
+            v-for="post in displayLists"
+            :key="post.index"
             cols="12"
             sm="6"
             lg="4"
@@ -110,6 +110,12 @@
         </div>
       </v-col>
     </v-row>
+    <v-pagination
+      v-model = "page"
+      :length = "length"
+      @input = "pageChange"
+      class = "pageNation"
+    ></v-pagination>
   </v-container>
 </template>
 
@@ -118,6 +124,14 @@ import { mapState, mapGetters } from 'vuex'
 import draftChip from '~/components/posts/draftChip'
 
 export default {
+  data(){
+    return{
+      page: 1,
+      length:0,
+      displayLists: [],
+      pageSize: 10,
+    }
+  },
   components: {
     draftChip,
   },
@@ -134,14 +148,34 @@ export default {
         }
       }
     }
+  },
+  mounted (){
+    this.posts
+    this.length = Math.ceil(this.posts.length/this.pageSize);
+    this.displayLists = this.posts.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
+  },
+  methods: {
+    pageChange: function(pageNumber){
+      this.displayLists = this.posts.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
+      this.returnTop()
+    },
+    returnTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'auto'
+      })
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
   .discription{
-    padding-top: 70px;
+    padding: 10px 0px;
     width: 90%;
     margin: auto;
+  }
+  .pageNation{
+    margin-top: 20px;
   }
 </style>

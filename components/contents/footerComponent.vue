@@ -6,7 +6,7 @@
     <v-card
       flat
       tile
-      class="indigo lighten-1 white--text text-center footer-width"
+      class="amber lighten-1 white--text text-center footer-width"
     >
       <v-card-text>
         <v-btn

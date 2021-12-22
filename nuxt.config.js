@@ -49,7 +49,8 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit'
   ],
 
   env: {
@@ -137,6 +138,11 @@ export default {
         ]
       })
     }
+  },
+
+  markdownit: {
+    injected: true,   // 「$md」でどこからでも使えるようにする
+    breaks: true      // 改行を<br/>に変換する
   }
 
 }

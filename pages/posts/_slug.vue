@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <breadcrumbs :add-items="addBreads" />
-
-    {{ currentPost.fields.title }}
+    <h2>{{ currentPost.fields.title }}</h2>
+    <p class="publishData">{{ currentPost.fields.publishDate }} 更新</p>
     <v-img
       :src="setEyeCatch(currentPost).url"
       :alt="setEyeCatch(currentPost).title"
@@ -11,13 +11,15 @@
       height="400"
       class="mx-auto"
     />
-    {{ currentPost.fields.publishDate }}<br>
-    {{ currentPost.fields.body }}
+    <div class="mainContents">
+      <div v-html="$md.render(currentPost.fields.body)" class="testImg"></div>
+    </div>
 
     <v-btn
       outlined
       color="primary"
       to="/"
+      class="btn"
     >
       <v-icon size="16">
         fas fa-angle-double-left
@@ -29,6 +31,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 
 export default {
   async asyncData ({ payload, store, params, error }) {
@@ -55,6 +58,37 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    toHtmlString(obj) {
+      return documentToHtmlString(obj)
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  h2{
+    margin: 10px;
+    text-align: center;
+  }
+  .publishData {
+    margin: 20px;
+    text-align:right
+  }
+  .mainContents {
+    display: flex;
+    justify-content: center;
+  }
+  .btn {
+    display: flex;
+    justify-content: center;
+    width: 200px;
+    margin: auto;
+  }
+  ::v-deep .testImg{
+    img {
+      width: 320px;
+    }
+  }
+</style>

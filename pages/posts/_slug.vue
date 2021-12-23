@@ -1,18 +1,18 @@
 <template>
   <v-container fluid>
     <breadcrumbs :add-items="addBreads" />
-    <h2>{{ currentPost.fields.title }}</h2>
     <p class="publishData">{{ currentPost.fields.publishDate }} 更新</p>
+    <h2>{{ currentPost.fields.title }}</h2>
     <v-img
       :src="setEyeCatch(currentPost).url"
       :alt="setEyeCatch(currentPost).title"
       :aspect-ratio="16/9"
-      width="700"
-      height="400"
+      max-width="600"
+      max-height="400"
       class="mx-auto"
     />
     <div class="mainContents">
-      <div v-html="$md.render(currentPost.fields.body)" class="testImg"></div>
+      <div v-html="$md.render(currentPost.fields.body)" class="contentsImg"></div>
     </div>
 
     <v-btn
@@ -69,12 +69,14 @@ export default {
 
 <style lang="scss" scoped>
   h2{
+    font-size: xx-large;
     margin: 10px;
     text-align: center;
   }
   .publishData {
-    margin: 20px;
-    text-align:right
+    margin: auto;
+    max-width: 540px;
+    text-align: center;
   }
   .mainContents {
     display: flex;
@@ -86,9 +88,14 @@ export default {
     width: 200px;
     margin: auto;
   }
-  ::v-deep .testImg{
+  ::v-deep .contentsImg{
     img {
-      width: 320px;
+      max-width: 320px;
+      max-height: 400px;
+
+      @media only screen and (max-width:320px) {
+        max-width: 280px;
+      }
     }
   }
 </style>

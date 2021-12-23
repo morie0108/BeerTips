@@ -142,7 +142,10 @@ export default {
 
   markdownit: {
     injected: true,   // 「$md」でどこからでも使えるようにする
-    breaks: true      // 改行を<br/>に変換する
+    breaks: true,      // 改行を<br/>に変換する
+    use: [
+      'markdown-it-br'
+    ]
   }
 
 }

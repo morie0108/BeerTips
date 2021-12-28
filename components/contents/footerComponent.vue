@@ -6,13 +6,13 @@
     <v-card
       flat
       tile
-      class="amber lighten-1 white--text text-center footer-width"
+      class="light-green lighten-5 black--text text-center footer-width"
     >
       <v-card-text>
         <v-btn
           v-for="icon in icons"
           :key="icon"
-          class="mx-4 white--text"
+          class="mx-4 black--text"
           icon
         >
           <v-icon size="24px">
@@ -21,14 +21,14 @@
         </v-btn>
       </v-card-text>
 
-      <v-card-text class="white--text pt-0">
-        Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.
+      <v-card-text class="black--text pt-0">
+        This site provides information on craft beer. Please enjoy reading it!
       </v-card-text>
 
       <v-divider></v-divider>
 
-      <v-card-text class="white--text">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      <v-card-text class="black--text">
+        {{ new Date().getFullYear() }} — <strong>BeerTips</strong>
       </v-card-text>
     </v-card>
   </v-footer>

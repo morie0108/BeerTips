@@ -12,7 +12,7 @@
       class="mx-auto"
     />
     <div class="mainContents">
-      <div v-html="$md.render(currentPost.fields.body)" class="contentsImg"></div>
+      <div v-html="$md.render(currentPost.fields.body)" class="contents"></div>
     </div>
 
     <v-btn
@@ -69,7 +69,7 @@ export default {
 
 <style lang="scss" scoped>
   h2{
-    font-size: xx-large;
+    font-size: x-large;
     margin: 10px;
     text-align: center;
   }
@@ -88,14 +88,49 @@ export default {
     width: 200px;
     margin: auto;
   }
-  ::v-deep .contentsImg{
-    img {
-      max-width: 320px;
-      max-height: 400px;
+  ::v-deep .contents{
 
-      @media only screen and (max-width:320px) {
-        max-width: 280px;
+    h2 {
+      background: #FFFFF3;/*背景色*/
+      border-left: solid 5px #FFAB00;/*左線（実線 太さ 色）*/
+      color: #494949;/*文字色*/
+      font-size: 1.17rem;
+      margin: 16px 0px;
+      padding: 0.5em;/*文字周りの余白*/
+    }
+
+    h3 {
+      border-bottom: solid 3px #FFFFF3;
+      margin:16px 2px;
+      position: relative;
+    }
+
+    h3:after {
+      position: absolute;
+      content: " ";
+      display: block;
+      border-bottom: solid 3px #FFAB00;
+      bottom: -3px;
+      width: 20%;
+    }
+
+    p {
+      color: #4b5563;
+    }
+
+    img {
+      max-width: 350px;
+      max-height: 350px;
+
+      @media only screen and (min-width:520px) {
+        max-width: 480px;
+        max-height: 480px;
       }
+
+      @media only screen and (max-width:370px) {
+        max-width: 296px;
+      }
+
     }
   }
 </style>

@@ -20,3 +20,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .discription{
+    padding: 10px 0px;
+    width: 90%;
+    margin: auto;
+  }
+</style>

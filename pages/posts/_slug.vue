@@ -3,6 +3,29 @@
     <breadcrumbs :add-items="addBreads" />
     <p class="publishData">{{ currentPost.fields.publishDate }} 更新</p>
     <h2>{{ currentPost.fields.title }}</h2>
+    <v-card-text>
+    <template v-if="currentPost.fields.tags">
+      <v-chip
+        v-for="(tag) in currentPost.fields.tags"
+        :key="tag.sys.id"
+        :to="linkTo('tags', tag)"
+        small
+        label
+        outlined
+        class="ma-1"
+      >
+
+        <v-icon
+          left
+          size="18"
+          color="grey"
+        >
+          mdi-label
+        </v-icon>
+        {{ tag.fields.name }}
+      </v-chip>
+    </template>
+  </v-card-text>
     <v-img
       :src="setEyeCatch(currentPost).url"
       :alt="setEyeCatch(currentPost).title"
@@ -72,6 +95,7 @@ export default {
     font-size: x-large;
     margin: 10px;
     text-align: center;
+    text-decoration: underline;
   }
   .publishData {
     margin: auto;
@@ -81,37 +105,32 @@ export default {
   .mainContents {
     display: flex;
     justify-content: center;
+    margin-top: 30px;
   }
   .btn {
     display: flex;
     justify-content: center;
     width: 200px;
-    margin: auto;
+    margin: 30px auto;
+  }
+  .v-card__text{
+    text-align: center;
   }
   ::v-deep .contents{
 
     h2 {
-      background: #FFFFF3;/*背景色*/
-      border-left: solid 5px #FFAB00;/*左線（実線 太さ 色）*/
+      font-size:large;
+      padding: 0.25em 0.5em;/*上下 左右の余白*/
       color: #494949;/*文字色*/
-      font-size: 1.17rem;
-      margin: 16px 0px;
-      padding: 0.5em;/*文字周りの余白*/
+      background:  #fffffe;/*背景色*/
+      border-left: solid 5px #262130;/*左線*/
+      margin-bottom: 14px;
     }
 
     h3 {
-      border-bottom: solid 3px #FFFFF3;
-      margin:16px 2px;
+      font-size:large;
       position: relative;
-    }
-
-    h3:after {
-      position: absolute;
-      content: " ";
-      display: block;
-      border-bottom: solid 3px #FFAB00;
-      bottom: -3px;
-      width: 20%;
+      line-height: 2.4;
     }
 
     p {

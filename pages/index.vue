@@ -1,9 +1,6 @@
 <template>
   <v-container fluid>
-      <div class="discription">
-        <h1>このサイトの紹介</h1>
-        <p>こちらのサイトでは、最新の情報をお伝えしています。</p>
-      </div>
+    <headerImage />
     <v-row
       justify="center"
     >
@@ -53,6 +50,7 @@
               <v-card-title>
                 <nuxt-link
                   :to="linkTo('posts', post)"
+                  class="link-color"
                 >
                   {{ post.fields.title }}
                 </nuxt-link>
@@ -96,7 +94,7 @@
                 <v-spacer />
                 <v-btn
                   text
-                  color="primary"
+                  color="black"
                   :to="linkTo('posts',post)"
                 >
                   この記事をみる
@@ -122,6 +120,8 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import draftChip from '~/components/posts/draftChip'
+import headerImage from '~/components/contents/headerImage'
+
 
 export default {
   data(){
@@ -134,6 +134,7 @@ export default {
   },
   components: {
     draftChip,
+    headerImage,
   },
   computed: {
     ...mapState(['posts']),
@@ -170,6 +171,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .container{
+    padding: 0px;
+  }
   .discription{
     padding: 10px 0px;
     width: 90%;
@@ -178,4 +182,11 @@ export default {
   .pageNation{
     margin-top: 20px;
   }
+  .row{
+    padding: 10px
+  }
+  .link-color{
+    color: black;
+  }
+
 </style>

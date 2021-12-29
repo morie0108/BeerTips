@@ -45,3 +45,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .ml-1{
+    color: black;
+  }
+</style>

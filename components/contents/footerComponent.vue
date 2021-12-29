@@ -6,7 +6,7 @@
     <v-card
       flat
       tile
-      class="light-green lighten-5 black--text text-center footer-width"
+      class="yellow lighten-2 black--text text-center footer-width"
     >
       <v-card-text>
         <v-btn
@@ -23,6 +23,10 @@
 
       <v-card-text class="black--text pt-0">
         This site provides information on craft beer. Please enjoy reading it!
+      </v-card-text>
+
+      <v-card-text class="black--text pt-0">
+      Illustration by <a class="black--text" href="https://icons8.com/illustrations/author/603d1fd6123f9916a4db9ee6">  Irina Molchanova</a> from <a  class="black--text" href="https://icons8.com/illustrations">Ouch!</a>
       </v-card-text>
 
       <v-divider></v-divider>
@@ -47,7 +51,10 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  a {
+    color: black;
+  }
   .footer-width{
     width:100%;
   }

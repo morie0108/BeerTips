@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <headerImage />
+    <h2>記事一覧</h2>
     <v-row
       justify="center"
     >
@@ -180,5 +181,12 @@ export default {
   .link-color{
     color: black;
   }
+
+h2 {
+  font-size: large;
+  text-align: center;
+}
+
+
 
 </style>

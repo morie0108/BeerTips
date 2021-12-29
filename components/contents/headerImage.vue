@@ -47,42 +47,34 @@ export default {
 }
 h1 {
   color: aliceblue;
-  font-size: x-large;
+  font-size: large;
   text-align: center;
   margin: 10px;
   @media only screen and (min-width:960px) {
-    font-size: xx-large;
+    font-size: x-large;
   }
 }
 p {
-  background-color: #f7f8ff;
-  border-radius: 16px;
-  color: #aliceblue;
-  max-width: 620px;
+  // background-color: #f7f8ff;
+  // border-radius: 16px;
+  color: aliceblue;
+  max-width: 540px;
   margin: auto;
-  padding: 24px 10px;
+  padding: 12px 10px;
   text-align: center;
   @media only screen and (min-width:960px) {
-    font-size: x-large;
+    font-size: large;
     padding: 24px 16px;
   }
 }
   img {
-      max-width: 320px;
-      max-height: 320px;
+      max-width: 240px;
+      max-height: 240px;
 
       @media only screen and (min-width:520px) {
-        max-width: 480px;
-        max-height: 480px;
+        max-width: 320px;
+        max-height: 320px;
       }
 
-      @media only screen and (min-width:960px) {
-        max-width: 360px;
-        max-height: 360px;
-      }
-
-      @media only screen and (max-width:370px) {
-        max-width: 260px;
-      }
   }
 </style>

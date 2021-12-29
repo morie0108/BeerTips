@@ -40,3 +40,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-toolbar__title{
+    margin: auto;
+    padding-right: 72px;
+  }
+</style>
+
+<style

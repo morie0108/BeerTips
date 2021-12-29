@@ -9,11 +9,7 @@ export default {
       url: '#'
     },
     {
-      name: 'WORK',
-      url: '#'
-    },
-    {
-      name: 'SERVICE',
+      name: 'NEWS',
       url: '#'
     },
     {
@@ -21,7 +17,7 @@ export default {
       url: '#'
     },
     {
-      name: 'ACCESS',
+      name: 'CONTACT',
       url: '#'
     }
   ]

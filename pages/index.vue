@@ -47,15 +47,6 @@
                 </v-card-text>
               </v-img>
 
-              <v-card-title>
-                <nuxt-link
-                  :to="linkTo('posts', post)"
-                  class="link-color"
-                >
-                  {{ post.fields.title }}
-                </nuxt-link>
-              </v-card-title>
-
               <v-card-text>
                 {{ post.fields.publishDate }}
               </v-card-text>
@@ -181,6 +172,7 @@ export default {
   }
   .pageNation{
     margin-top: 20px;
+    margin-bottom: 32px;
   }
   .row{
     padding: 10px

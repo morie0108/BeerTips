@@ -38,6 +38,7 @@
                   mdi-image-filter-none
                 </v-icon>
                 <nuxt-link
+                  color="black"
                   :to="linkTo('categories', item)"
                 >
                   {{ item.fields.name }}
@@ -105,3 +106,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-application a {
+      color: black;
+  }
+</style>

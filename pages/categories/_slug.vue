@@ -3,7 +3,7 @@
     <breadcrumbs :add-items="addBreads" class="breadcrumbs"/>
     <div class="discription">
       <h1>{{ category.fields.name }}</h1>
-      <p>こちらのページでは、{{ category.fields.name }}に関連する記事を紹介しています。</p>
+      <p class="copy">こちらのページでは、{{ category.fields.name }}に関連する記事を紹介しています。</p>
     </div>
     <v-row
       justify="center"
@@ -27,7 +27,7 @@
               max-width="400"
               class="mx-auto"
             >
-              <v-card-title class="align-end fill-height font-weight-bold">
+              <v-card-title class="align-end fill-height font-weight-bold title">
                 {{ post.fields.title }}
                 <span :is="draftChip(post)" />
               </v-card-title>
@@ -40,23 +40,15 @@
               >
               </v-img>
 
-              <v-card-title>
-                <nuxt-link
-                  :to="linkTo('posts', post)"
-                >
-                  {{ post.fields.title }}
-                </nuxt-link>
-              </v-card-title>
-
               <v-card-text>
                 {{ post.fields.publishDate }}
               </v-card-text>
 
-              <v-list-item three-line style="min-height: unset;">
+              <!-- <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
                   {{ post.fields.body }}
                 </v-list-item-subtitle>
-              </v-list-item>
+              </v-list-item> -->
 
               <v-card-text>
                 <template v-if="post.fields.tags">
@@ -86,7 +78,7 @@
                 <v-spacer />
                 <v-btn
                   text
-                  color="primary"
+                  color="black"
                   :to="linkTo('posts',post)"
                 >
                   この記事をみる
@@ -139,6 +131,20 @@ export default {
   .discription{
     height: 100px;
     width: 90%;
-    margin: auto;
+    margin: 10px auto;
+  }
+  .copy{
+    text-align: center;
+  }
+  h1{
+    font-size: x-large;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .v-card__subtitle, .v-card__text, .v-card__title {
+    padding: 8px 12px;
+  }
+  .title {
+    justify-content: center;
   }
 </style>

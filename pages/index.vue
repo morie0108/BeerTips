@@ -24,7 +24,7 @@
               max-width="400"
               class="mx-auto"
             >
-              <v-card-title class="align-end fill-height font-weight-bold">
+              <v-card-title class="align-end fill-height font-weight-bold title">
                 {{ post.fields.title }}
                 <span :is="draftChip(post)" />
               </v-card-title>
@@ -38,7 +38,7 @@
                 <v-card-text>
                   <v-chip
                     small
-                    dark
+                    light
                     :color="categoryColor(post.fields.category)"
                     :to="linkTo('categories', post.fields.category)"
                     class="font-weight-bold"
@@ -52,11 +52,11 @@
                 {{ post.fields.publishDate }}
               </v-card-text>
 
-              <v-list-item three-line style="min-height: unset;">
+              <!-- <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
                   {{ post.fields.body }}
                 </v-list-item-subtitle>
-              </v-list-item>
+              </v-list-item> -->
 
               <v-card-text>
                 <template v-if="post.fields.tags">
@@ -134,9 +134,9 @@ export default {
     categoryColor () {
       return (category) => {
         switch (category.fields.name) {
-          case 'coordinate': return '#C73A31'
-          case 'report': return '#236244'
-          case 'news': return 'primary'
+          case 'Beer': return '#FFEE58'
+          case 'Brewery': return '#A7FFEB'
+          case 'Shop・Service': return 'deep-purple lighten-3'
           default: return 'grey darken-3'
         }
       }
@@ -186,7 +186,10 @@ h2 {
   font-size: large;
   text-align: center;
 }
-
-
-
+.v-card__subtitle, .v-card__text, .v-card__title {
+    padding: 8px 12px;
+}
+.title {
+  justify-content: center;
+}
 </style>

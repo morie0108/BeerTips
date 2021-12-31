@@ -105,3 +105,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .v-application a {
+      color: black;
+  }
+</style>

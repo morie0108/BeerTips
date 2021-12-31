@@ -2,23 +2,15 @@ export default {
   menuItems: [
     {
       name: 'HOME',
-      url: '#'
+      url: '/'
     },
     {
-      name: 'ABOUT',
-      url: '#'
+      name: 'カテゴリ一覧',
+      url: '/categories'
     },
     {
-      name: 'NEWS',
+      name: 'ABOUT(準備中)',
       url: '#'
     },
-    {
-      name: 'BLOG',
-      url: '#'
-    },
-    {
-      name: 'CONTACT',
-      url: '#'
-    }
   ]
 }

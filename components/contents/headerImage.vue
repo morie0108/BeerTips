@@ -70,11 +70,5 @@ p {
   img {
       max-width: 240px;
       max-height: 240px;
-
-      @media only screen and (min-width:520px) {
-        max-width: 320px;
-        max-height: 320px;
-      }
-
   }
 </style>

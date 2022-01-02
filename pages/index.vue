@@ -52,11 +52,11 @@
                 {{ post.fields.publishDate }}
               </v-card-text>
 
-              <!-- <v-list-item three-line style="min-height: unset;">
+              <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
                   {{ post.fields.body }}
                 </v-list-item-subtitle>
-              </v-list-item> -->
+              </v-list-item>
 
               <v-card-text>
                 <template v-if="post.fields.tags">

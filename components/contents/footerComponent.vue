@@ -12,11 +12,12 @@
         <v-btn
           v-for="icon in icons"
           :key="icon"
+          :href="icon.url"
           class="mx-4 black--text"
           icon
         >
           <v-icon size="24px">
-            {{ icon }}
+            {{ icon.name }}
           </v-icon>
         </v-btn>
       </v-card-text>
@@ -42,9 +43,18 @@
   export default {
     data: () => ({
       icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-instagram',
+        // {
+        //   name:'mdi-facebook',
+        //   url:'#',
+        // },
+        {
+          name:'mdi-twitter',
+          url:'https://twitter.com/BeerTips_2022',
+        },
+        {
+          name:'mdi-instagram',
+          url:'https://www.instagram.com/beer_tips.2022/',
+        },
       ],
     }),
   }

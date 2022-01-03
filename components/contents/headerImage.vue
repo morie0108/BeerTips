@@ -37,7 +37,7 @@ export default {
       justify-content: center;
     }
     .copy {
-      margin: auto 32px;
+      margin: auto 6px;
     }
 
 }
@@ -68,7 +68,11 @@ p {
   }
 }
   img {
-      max-width: 240px;
-      max-height: 240px;
+      max-width: 140px;
+      max-height: 140px;
+      @media only screen and (min-width:960px) {
+      max-width: 200px;
+      max-height: 200px;
+    }
   }
 </style>

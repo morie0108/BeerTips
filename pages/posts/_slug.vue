@@ -118,6 +118,8 @@ export default {
   }
   ::v-deep .contents{
 
+    max-width: 540px;
+
     h2 {
       font-size:large;
       padding: 0.25em 0.5em;/*上下 左右の余白*/
@@ -138,6 +140,8 @@ export default {
     }
 
     img {
+      display: block;
+      margin: auto;
       max-width: 350px;
       max-height: 350px;
 

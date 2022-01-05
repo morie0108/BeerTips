@@ -117,9 +117,7 @@ export default {
     text-align: center;
   }
   ::v-deep .contents{
-
     max-width: 540px;
-
     h2 {
       font-size:large;
       padding: 0.25em 0.5em;/*上下 左右の余白*/
@@ -128,17 +126,18 @@ export default {
       border-left: solid 5px #262130;/*左線*/
       margin-bottom: 14px;
     }
-
     h3 {
       font-size:large;
       position: relative;
       line-height: 2.4;
     }
-
     p {
       color: #4b5563;
     }
-
+    td {
+      font-size: x-small;
+      padding-right: 6px;
+    }
     img {
       display: block;
       margin: auto;

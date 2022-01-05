@@ -55,7 +55,7 @@ export default {
       '@nuxtjs/google-gtag',
       {
         id: process.env.GAID,
-        debug: true
+        debug: false
       }
     ]
   ],

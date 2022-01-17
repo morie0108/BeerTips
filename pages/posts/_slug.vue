@@ -8,7 +8,7 @@
       <v-chip
         v-for="(tag) in currentPost.fields.tags"
         :key="tag.sys.id"
-        :to="linkTo('tags', tag)"
+        :to="linkTo('tagås', tag)"
         small
         label
         outlined
@@ -59,7 +59,6 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
 export default {
   async asyncData ({ payload, store, params, error }) {
     const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
-
     if (currentPost) {
       return {
         currentPost,
@@ -69,7 +68,6 @@ export default {
       return error({ statusCode: 400 })
     }
   },
-
   computed: {
     ...mapGetters(['setEyeCatch', 'linkTo']),
     addBreads () {

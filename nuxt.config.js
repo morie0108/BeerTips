@@ -1,8 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
+import axios from 'axios'
 
 require('dotenv').config()
 const client = require('./plugins/contentful').default
-
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -35,6 +35,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    'nuxt-microcms-module',
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
@@ -153,6 +154,14 @@ export default {
     use: [
       'markdown-it-br'
     ]
+  },
+
+  microcms: {
+    options: {
+      serviceDomain: process.env.SERVICE_DOMAIN,
+      apiKey: process.env.API_KEY,
+    },
+    mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
   },
 
 }

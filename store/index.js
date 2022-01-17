@@ -8,6 +8,11 @@ export const state = () => ({
 })
 
 export const getters = {
+
+  LinkTo: () => (name, obj) => {
+    return { name: `${name}-slug`, params: { slug: obj.id } }
+  },
+
   setEyeCatch: () => (post) => {
     if (!!post.fields.image && !!post.fields.image.fields) {
       return { url: `https:${post.fields.image.fields.file.url}`, title: post.fields.image.fields.title }
@@ -43,6 +48,20 @@ export const getters = {
     }
     return posts
   },
+
+  testAssociateTagPosts: state => (currentTag) => {
+    const posts = []
+    for (let i = 0; i < state.posts.length; i++) {
+      const post = state.posts[i]
+      if (post.fields.tags) {
+        const tag = post.fields.tags.find(tag => tag.sys.id === currentTag.sys.id)
+
+        if (tag) { posts.push(post) }
+      }
+    }
+    return posts
+  },
+
   associateCategoryPosts: state => (currentCategory) => {
     const posts = []
     for (let i = 0; i < state.posts.length; i++) {

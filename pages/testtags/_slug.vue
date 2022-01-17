@@ -117,18 +117,35 @@ export default {
     components: {
     draftChip,
   },
-  asyncData ({ payload, params, error, store, env }) {
-    const tag = payload || store.state.tags.find(tag => tag.fields.slug === params.slug)
-    if (tag) {
-      const relatedPosts = store.getters.associateTagPosts(tag)
-      return { tag, relatedPosts }
-    } else {
-      error({ statusCode: 400 })
+ async asyncData({$microcms}) {
+
+    const post = await $microcms.get({
+      endpoint: 'blog',
+      queries: { limit: 20, filters: 'createdAt[greater_than]2021' },
+    });
+
+    const tag = await $microcms.get({
+      endpoint: 'tags',
+      queries: { limit: 20, filters: 'createdAt[greater_than]2021' },
+    });
+
+    const category = await $microcms.get({
+      endpoint: 'categories',
+      queries: { limit: 20, filters: 'createdAt[greater_than]2021' },
+    });
+
+
+
+    return{
+      post,
+      tag,
+      category
     }
   },
+
   computed: {
     addBreads () {
-      // console.log(this.relatedPosts)
+      console.log(this.relatedPosts)
       return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags' }]
     },
     ...mapState(['posts']),

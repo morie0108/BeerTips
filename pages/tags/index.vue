@@ -21,10 +21,9 @@
                 hide-details
               />
             </v-card-title>
-
             <v-data-table
               :headers="headers"
-              :items="tableItems"
+              :items="tagItems"
               :search="search"
               :sort-by="sortBy"
               :items-per-page="itemsPerPage"
@@ -33,14 +32,14 @@
               hide-default-footer
               @page-count="pageCount = $event"
             >
-              <template v-slot:[`item.fields.name`]="{ item }">
+              <template v-slot:[`item.name`]="{ item }">
                 <v-icon size="18">
                   mdi-tag-outline
                 </v-icon>
                 <nuxt-link
-                  :to="linkTo('tags', item)"
+                  :to="testLinkTo('tags', item)"
                 >
-                  {{ item.fields.name }}
+                  {{ item.name }}
                 </nuxt-link>
               </template>
             </v-data-table>
@@ -68,7 +67,7 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   data: () => ({
     search: '',
-    sortBy: 'fields.postcount',
+    sortBy: 'postcount',
     itemsPerPage: 20,
     page: 1,
     pageCount: 0,
@@ -77,29 +76,34 @@ export default {
       {
         text: 'タグ',
         align: 'left',
-        value: 'fields.name'
+        value: 'name'
       },
       {
         text: '投稿数',
         align: 'center',
         width: 150,
-        value: 'fields.postcount'
+        value: 'postcount'
       }
     ]
   }),
   computed: {
     ...mapState(['tags']),
-    ...mapGetters(['linkTo']),
+    ...mapGetters(['testLinkTo']),
     addBreads () {
       return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags', disabled: true, iconColor: 'grey' }]
     },
-    tableItems () {
+    tagItems () {
       const tags = []
-      for (let i = 0; i < this.tags.length; i++) {
-        const tag = this.tags[i]
-        tag.fields.postcount = this.$store.getters.associateTagPosts(tag).length
-        tags.push(tag)
-      }
+      const post = this.$store.getters.getTestTags
+      Object.keys(post).forEach((key) => {
+
+          const tag = post[key]
+          // console.log(tag)
+          //tag.fields にpostcount を作成する必要がある
+          tag.postcount = this.$store.getters.testAssociateTagPosts(tag).length
+          tags.push(tag)
+    });
+      // console.log(tags)
       return tags
     }
   }

@@ -11,7 +11,7 @@
         md="10"
         xl="8"
       >
-        <v-row v-if="posts.length">
+        <v-row v-if="testPost.length">
           <v-col
             v-for="post in displayLists"
             :key="post.index"
@@ -25,12 +25,11 @@
               class="mx-auto"
             >
               <v-card-title class="align-end fill-height font-weight-bold title">
-                {{ post.fields.title }}
-                <span :is="draftChip(post)" />
+                {{ post.title }}
               </v-card-title>
               <v-img
-                :src="setEyeCatch(post).url"
-                :alt="setEyeCatch(post).title"
+                :src="post.image.url"
+                :alt="post.image.title"
                 :aspect-ratio="16/9"
                 max-height="200"
                 class="white--text"
@@ -39,31 +38,31 @@
                   <v-chip
                     small
                     light
-                    :color="categoryColor(post.fields.category)"
-                    :to="linkTo('categories', post.fields.category)"
+                    :color="categoryColor(post.category)"
+                    :to="testLinkTo('categories', post.category)"
                     class="font-weight-bold"
                   >
-                    {{ post.fields.category.fields.name }}
+                    {{ post.category.name }}
                   </v-chip>
                 </v-card-text>
               </v-img>
 
               <v-card-text>
-                {{ post.fields.publishDate }}
+                {{ post.updatedAt }}
               </v-card-text>
 
               <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
-                  {{ post.fields.body }}
+                {{ post.updatedAt }}
                 </v-list-item-subtitle>
               </v-list-item>
 
               <v-card-text>
-                <template v-if="post.fields.tags">
+                <template v-if="post.tags">
                   <v-chip
-                    v-for="(tag) in post.fields.tags"
-                    :key="tag.sys.id"
-                    :to="linkTo('tags', tag)"
+                    v-for="(tag) in post.tags"
+                    :key="tag.id"
+                    :to="testLinkTo('tags', tag)"
                     small
                     label
                     outlined
@@ -77,7 +76,7 @@
                     >
                       mdi-label
                     </v-icon>
-                    {{ tag.fields.name }}
+                    {{ tag.name }}
                   </v-chip>
                 </template>
               </v-card-text>
@@ -87,7 +86,7 @@
                 <v-btn
                   text
                   color="black"
-                  :to="linkTo('posts',post)"
+                  :to="testLinkTo('posts',post)"
                 >
                   この記事をみる
                 </v-btn>
@@ -129,11 +128,16 @@ export default {
     headerImage,
   },
   computed: {
-    ...mapState(['posts']),
-    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
+    ...mapState(['posts','testPosts']),
+    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo','testLinkTo']),
+    testPost() {
+    const blog = this.$store.getters.getTestPost
+    // console.log(blog)
+    return blog
+  },
     categoryColor () {
       return (category) => {
-        switch (category.fields.name) {
+        switch (category.name) {
           case 'Beer': return '#FFEE58'
           case 'Brewery': return '#A7FFEB'
           case 'Shop・Service': return 'deep-purple lighten-3'
@@ -143,13 +147,15 @@ export default {
     }
   },
   mounted (){
-    this.posts
-    this.length = Math.ceil(this.posts.length/this.pageSize);
-    this.displayLists = this.posts.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
+    this.testPosts
+    this.length = Math.ceil(this.testPosts.length/this.pageSize);
+    this.displayLists = this.testPosts.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
+    // console.log(this.displayLists)
+
   },
   methods: {
     pageChange: function(pageNumber){
-      this.displayLists = this.posts.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
+      this.displayLists = this.testPosts.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
       this.returnTop()
     },
     returnTop() {

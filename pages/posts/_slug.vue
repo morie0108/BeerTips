@@ -1,42 +1,49 @@
 <template>
-  <v-container fluid>
-    <breadcrumbs :add-items="addBreads" />
-    <p class="publishData">{{ currentPost.fields.publishDate }} 更新</p>
-    <h2>{{ currentPost.fields.title }}</h2>
-    <v-card-text>
-    <template v-if="currentPost.fields.tags">
-      <v-chip
-        v-for="(tag) in currentPost.fields.tags"
-        :key="tag.sys.id"
-        :to="linkTo('tagås', tag)"
-        small
-        label
-        outlined
-        class="ma-1"
-      >
 
-        <v-icon
-          left
-          size="18"
-          color="grey"
+<v-container fluid>
+  <breadcrumb :breadcrumbs="breadcrumbs" />
+
+    <div v-for="content in testPost" :key="content.id">
+      <p class="publishData">{{ content.updatedAt }} 更新</p>
+      <h2>{{ content.title }}</h2>
+
+      <v-card-text>
+      <template v-if="content.tags">
+        <v-chip
+          v-for="(tag) in content.tags"
+          :key="tag.id"
+          :to="testLinkTo('tags', tag)"
+          small
+          label
+          outlined
+          class="ma-1"
         >
-          mdi-label
-        </v-icon>
-        {{ tag.fields.name }}
-      </v-chip>
-    </template>
-  </v-card-text>
-    <v-img
-      :src="setEyeCatch(currentPost).url"
-      :alt="setEyeCatch(currentPost).title"
-      :aspect-ratio="16/9"
-      max-width="600"
-      max-height="400"
-      class="mx-auto"
-    />
-    <div class="mainContents">
-      <div v-html="$md.render(currentPost.fields.body)" class="contents"></div>
-    </div>
+          <v-icon
+            left
+            size="18"
+            color="grey"
+          >
+            mdi-label
+          </v-icon>
+          {{ tag.name }}
+        </v-chip>
+      </template>
+    </v-card-text>
+
+      <v-img
+        :src="content.image.url"
+        :alt="content.title"
+        :aspect-ratio="16/9"
+        max-width="600"
+        max-height="400"
+        class="mx-auto"
+      />
+
+      <div class="mainContents">
+        <div class="contents" v-html="content.body"></div>
+      </div>
+
+</div>
 
     <v-btn
       outlined
@@ -50,42 +57,66 @@
       <span class="ml-1">ホームへ戻る</span>
     </v-btn>
   </v-container>
+
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
+import { mapGetters} from 'vuex'
+import Breadcrumb from '~/components/Breadcrumb.vue'
 
 export default {
-  async asyncData ({ payload, store, params, error }) {
-    const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
-    if (currentPost) {
-      return {
-        currentPost,
-        category: currentPost.fields.category
-      }
-    } else {
-      return error({ statusCode: 400 })
-    }
-  },
+
   computed: {
-    ...mapGetters(['setEyeCatch', 'linkTo']),
-    addBreads () {
-      return [
+
+
+    ...mapGetters(['testSetEyeCatch','testLinkTo','setEyeCatch', 'linkTo','getTestTags']),
+
+
+  testPost() {
+    const post = this.$store.getters.getTestPost
+    const blog = []
+    Object.keys(post).forEach((key) => {
+        if (post[key].id === this.$route.params.slug)
         {
-          icon: 'mdi-folder-outline',
-          text: this.category.fields.name,
-          to: this.linkTo('categories', this.category)
+          blog.push(post[key])
         }
-      ]
-    }
+    });
+    return blog
   },
-  methods: {
-    toHtmlString(obj) {
-      return documentToHtmlString(obj)
-    }
+
+  // testTag() {
+  //   return this.$store.getters['getTestTags']
+  // },
+
+  // testCategory() {
+  //   return this.$store.getters['getTestCategories']
+  // },
+
+  breadcrumbs: function() {
+   const test =  this.testPost
+        return {
+          data: [
+            {
+              icon: 'mdi-home',
+              name: 'ホーム',
+              path: '/'
+            },
+            {
+              icon: 'mdi-folder-outline',
+              name: test[0].category.name,
+              path: '/categories/' + test[0].category.id
+            },
+            {
+              name: test[0].title
+            }
+          ]
+        }
+      }
+    },
+
   }
-}
+
+
 </script>
 
 <style lang="scss" scoped>

@@ -1,10 +1,9 @@
 <template>
 
 <v-container fluid>
-  <breadcrumb :breadcrumbs="breadcrumbs" />
+  <!-- <breadcrumb :breadcrumbs="breadcrumbs" />
 
-    <div v-for="content in post.contents" :key="content.id">
-
+    <div v-for="content in testPost" :key="content.id">
       <p class="publishData">{{ content.updatedAt }} 更新</p>
       <h2>{{ content.title }}</h2>
 
@@ -56,60 +55,37 @@
         fas fa-angle-double-left
       </v-icon>
       <span class="ml-1">ホームへ戻る</span>
-    </v-btn>
+    </v-btn> -->
   </v-container>
 
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters} from 'vuex'
 import Breadcrumb from '~/components/Breadcrumb.vue'
 
 export default {
 
-  async asyncData({$microcms , context}) {
-
-    const post = await $microcms.get({
-      endpoint: 'blog',
-      queries: { limit: 20, filters: 'createdAt[greater_than]2021' },
-    });
-
-    const tag = await $microcms.get({
-      endpoint: 'tags',
-      queries: { limit: 20, filters: 'createdAt[greater_than]2021' },
-    });
-
-    // const getTag = store.state.tags.find(tag => tag.fields.slug === params.slug)
-
-    const category = await $microcms.get({
-      endpoint: 'categories',
-      queries: { limit: 20, filters: 'createdAt[greater_than]2021' },
-    });
-
-    for (let i = 0; i < tag.contents.length; i++) {
-      const tagId = tag.contents[i].id;
-      console.log(tagId)
-    }
-
-    // console.log(this.$route.params.slug)
-
-    return{
-      post,
-      tag,
-      category
-    }
-
-  },
-
   computed: {
 
-    ...mapGetters(['testSetEyeCatch','testLinkTo','setEyeCatch', 'linkTo']),
+    ...mapGetters(['testSetEyeCatch','testLinkTo','setEyeCatch', 'linkTo','getTestTags']),
+
+  testPost() {
+    return this.$store.getters['getTestPost']
+  },
+
+  testTag() {
+    return this.$store.getters['getTestTags']
+  },
+
+  testCategory() {
+    return this.$store.getters['getTestCategories']
+  },
 
   breadcrumbs: function() {
-    // console.log(this.$route.params.slug)
-    // console.log(this.post)
-    // console.log(this.tag)
-    // console.log(this.category)
+   const test =  this.$store.getters.getTestPost
+
+
         return {
           data: [
             {
@@ -119,17 +95,19 @@ export default {
             },
             {
               icon: 'mdi-folder-outline',
-              name: this.post.contents[0].category.name,
-              path: '/categories/' + this.post.contents[0].category.id
+              name: test.category.name,
+              path: '/categories/' + test.category.id
             },
             {
-              name: this.post.contents[0].title
+              name: test.title
             }
           ]
         }
       }
-    }
+    },
+
   }
+
 
 </script>
 

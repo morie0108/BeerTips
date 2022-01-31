@@ -21,10 +21,9 @@
                 hide-details
               />
             </v-card-title>
-
             <v-data-table
               :headers="headers"
-              :items="tableItems"
+              :items="categoryItems"
               :search="search"
               :sort-by="sortBy"
               :items-per-page="itemsPerPage"
@@ -33,15 +32,14 @@
               hide-default-footer
               @page-count="pageCount = $event"
             >
-              <template v-slot:[`item.fields.name`]="{ item }">
+              <template v-slot:[`item.name`]="{ item }">
                 <v-icon size="18">
-                  mdi-image-filter-none
+                  mdi-tag-outline
                 </v-icon>
                 <nuxt-link
-                  color="black"
-                  :to="linkTo('categories', item)"
+                  :to="testLinkTo('categories', item)"
                 >
-                  {{ item.fields.name }}
+                  {{ item.name }}
                 </nuxt-link>
               </template>
             </v-data-table>
@@ -69,38 +67,42 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   data: () => ({
     search: '',
-    sortBy: 'fields.postcount',
+    sortBy: 'postcount',
     itemsPerPage: 20,
     page: 1,
     pageCount: 0,
     totalVisible: 7,
     headers: [
       {
-        text: 'カテゴリ',
+        text: 'タグ',
         align: 'left',
-        value: 'fields.name'
+        value: 'name'
       },
       {
         text: '投稿数',
         align: 'center',
         width: 150,
-        value: 'fields.postcount'
+        value: 'postcount'
       }
     ]
   }),
   computed: {
-    ...mapState(['categories']),
-    ...mapGetters(['linkTo']),
+    ...mapState(['tags']),
+    ...mapGetters(['testLinkTo']),
     addBreads () {
-      return [{ icon: 'mdi-image-filter-none', text: 'カテゴリ一覧', to: '/categories', disabled: true, iconColor: 'grey' }]
+      return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags', disabled: true, iconColor: 'grey' }]
     },
-    tableItems () {
+    categoryItems () {
       const categories = []
-      for (let i = 0; i < this.categories.length; i++) {
-        const category = this.categories[i]
-        category.fields.postcount = this.$store.getters.associateCategoryPosts(category).length
-        categories.push(category)
-      }
+      const post = this.$store.getters.getTestCategories
+      Object.keys(post).forEach((key) => {
+          const category = post[key]
+          // console.log(category)
+          //category.fields にpostcount を作成する必要がある
+          category.postcount = this.$store.getters.testAssociateCategoryPosts(category).length
+          categories.push(category)
+    });
+      // console.log(categories)
       return categories
     }
   }

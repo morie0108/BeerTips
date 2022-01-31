@@ -1,10 +1,12 @@
 <template>
+  <div>
   <v-container fluid>
     <breadcrumbs :add-items="addBreads" class="breadcrumbs"/>
-    <div class="discription">
-      <h1>{{ category.fields.name }}</h1>
-      <p class="copy">こちらのページでは、{{ category.fields.name }}に関連する記事を紹介しています。</p>
+    <div class="discription" v-for="category in getCategory" :key="category.id">
+    <h1>{{ category.name }}</h1>
+      <p class="copy">こちらのページでは、{{ category.name }}に関連する記事を紹介しています。</p>
     </div>
+
     <v-row
       justify="center"
     >
@@ -14,10 +16,10 @@
         md="10"
         xl="8"
       >
-        <v-row v-if="posts.length">
+        <v-row v-if="testPost.length">
           <v-col
-            v-for="(post, i) in relatedPosts"
-            :key="i"
+            v-for="content in testPost"
+            :key="content.id"
             cols="12"
             sm="6"
             lg="4"
@@ -28,34 +30,44 @@
               class="mx-auto"
             >
               <v-card-title class="align-end fill-height font-weight-bold title">
-                {{ post.fields.title }}
-                <span :is="draftChip(post)" />
+                {{ content.title }}
               </v-card-title>
               <v-img
-                :src="setEyeCatch(post).url"
-                :alt="setEyeCatch(post).title"
+                :src="content.image.url"
+                :alt="content.image.title"
                 :aspect-ratio="16/9"
                 max-height="200"
                 class="white--text"
               >
+                <v-card-text>
+                  <v-chip
+                    small
+                    light
+                    :color="categoryColor(content.category)"
+                    :to="testLinkTo('categories', content.category)"
+                    class="font-weight-bold"
+                  >
+                    {{ content.category.name }}
+                  </v-chip>
+                </v-card-text>
               </v-img>
 
               <v-card-text>
-                {{ post.fields.publishDate }}
+                {{ content.updatedAt }}
               </v-card-text>
 
               <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
-                  {{ post.fields.body }}
+                  {{ content.body }}
                 </v-list-item-subtitle>
               </v-list-item>
 
               <v-card-text>
-                <template v-if="post.fields.tags">
+                <template v-if="content.tags">
                   <v-chip
-                    v-for="(tag) in post.fields.tags"
-                    :key="tag.sys.id"
-                    :to="linkTo('tags', tag)"
+                    v-for="(tag) in content.tags"
+                    :key="tag.id"
+                    :to="testLinkTo('tags', tag)"
                     small
                     label
                     outlined
@@ -69,7 +81,7 @@
                     >
                       mdi-label
                     </v-icon>
-                    {{ tag.fields.name }}
+                    {{ tag.name }}
                   </v-chip>
                 </template>
               </v-card-text>
@@ -79,7 +91,7 @@
                 <v-btn
                   text
                   color="black"
-                  :to="linkTo('posts',post)"
+                  :to="testLinkTo('posts',content)"
                 >
                   この記事をみる
                 </v-btn>
@@ -93,7 +105,7 @@
       </v-col>
     </v-row>
   </v-container>
-
+  </div>
 </template>
 
 <script>
@@ -104,23 +116,53 @@ export default {
     components: {
     draftChip,
   },
-  async asyncData ({ payload, store, params, error }) {
-    const category = payload || await store.state.categories.find(cat => cat.fields.slug === params.slug)
-    if (category) {
-      const relatedPosts = store.getters.associateCategoryPosts(category)
-      return { category, relatedPosts  }
-    } else {
-      return error({ statusCode: 400 })
-    }
-  },
+
   computed: {
+  ...mapGetters(['testLinkTo','setEyeCatch', 'linkTo',]),
+
+  getCategory() {
+    const post = this.$store.getters.getTestCategories
+    // console.log(post)
+    const category = []
+    Object.keys(post).forEach((key) => {
+      if (post[key].id === this.$route.params.slug)
+        {
+          category.push(post[key])
+        }
+    });
+    return category
+  },
+
+  testPost() {
+    const post = this.$store.getters.getTestPost
+    // console.log(post)
+    const blog = []
+    Object.keys(post).forEach((key) => {
+      // console.log(post[key].category)
+
+        if (post[key].category.id === this.$route.params.slug)
+        {
+          blog.push(post[key])
+        }
+    });
+    // console.log(blog)
+    return blog
+  },
+
     addBreads () {
       return [{ icon: 'mdi-image-filter-none', text: 'カテゴリ一覧', to: '/categories' }]
     },
     ...mapState(['posts']),
     ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
-    relatedPosts () {
-      return this.$store.getters.relatedPosts(this.category)
+    categoryColor () {
+      return (category) => {
+        switch (category.name) {
+          case 'Beer': return '#FFEE58'
+          case 'Brewery': return '#A7FFEB'
+          case 'Shop・Service': return 'deep-purple lighten-3'
+          default: return 'grey darken-3'
+        }
+      }
     }
   }
 }

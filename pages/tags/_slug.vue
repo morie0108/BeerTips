@@ -2,9 +2,9 @@
   <div>
   <v-container fluid>
     <breadcrumbs :add-items="addBreads" class="breadcrumbs"/>
-    <div class="discription">
-    <h1>{{ tag.fields.name }}</h1>
-      <p class="copy">こちらのページでは、{{ tag.fields.name }}に関連する記事を紹介しています。</p>
+    <div class="discription" v-for="tag in getTag" :key="tag.id">
+    <h1>{{ tag.name }}</h1>
+      <p class="copy">こちらのページでは、{{ tag.name }}に関連する記事を紹介しています。</p>
     </div>
 
     <v-row
@@ -16,10 +16,10 @@
         md="10"
         xl="8"
       >
-        <v-row v-if="posts.length">
+        <v-row v-if="testPost.length">
           <v-col
-            v-for="(post, i) in relatedPosts"
-            :key="i"
+            v-for="content in testPost"
+            :key="content.id"
             cols="12"
             sm="6"
             lg="4"
@@ -30,12 +30,11 @@
               class="mx-auto"
             >
               <v-card-title class="align-end fill-height font-weight-bold title">
-                {{ post.fields.title }}
-                <span :is="draftChip(post)" />
+                {{ content.title }}
               </v-card-title>
               <v-img
-                :src="setEyeCatch(post).url"
-                :alt="setEyeCatch(post).title"
+                :src="content.image.url"
+                :alt="content.image.title"
                 :aspect-ratio="16/9"
                 max-height="200"
                 class="white--text"
@@ -44,31 +43,31 @@
                   <v-chip
                     small
                     light
-                    :color="categoryColor(post.fields.category)"
-                    :to="linkTo('categories', post.fields.category)"
+                    :color="categoryColor(content.category)"
+                    :to="testLinkTo('categories', content.category)"
                     class="font-weight-bold"
                   >
-                    {{ post.fields.category.fields.name }}
+                    {{ content.category.name }}
                   </v-chip>
                 </v-card-text>
               </v-img>
 
               <v-card-text>
-                {{ post.fields.publishDate }}
+                {{ content.updatedAt }}
               </v-card-text>
 
               <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
-                  {{ post.fields.body }}
+                  {{ content.body }}
                 </v-list-item-subtitle>
               </v-list-item>
 
               <v-card-text>
-                <template v-if="post.fields.tags">
+                <template v-if="content.tags">
                   <v-chip
-                    v-for="(tag) in post.fields.tags"
-                    :key="tag.sys.id"
-                    :to="linkTo('tags', tag)"
+                    v-for="(tag) in content.tags"
+                    :key="tag.id"
+                    :to="testLinkTo('tags', tag)"
                     small
                     label
                     outlined
@@ -82,7 +81,7 @@
                     >
                       mdi-label
                     </v-icon>
-                    {{ tag.fields.name }}
+                    {{ tag.name }}
                   </v-chip>
                 </template>
               </v-card-text>
@@ -92,7 +91,7 @@
                 <v-btn
                   text
                   color="black"
-                  :to="linkTo('posts',post)"
+                  :to="testLinkTo('posts',content)"
                 >
                   この記事をみる
                 </v-btn>
@@ -117,25 +116,59 @@ export default {
     components: {
     draftChip,
   },
-  asyncData ({ payload, params, error, store, env }) {
-    const tag = payload || store.state.tags.find(tag => tag.fields.slug === params.slug)
-    if (tag) {
-      const relatedPosts = store.getters.associateTagPosts(tag)
-      return { tag, relatedPosts }
-    } else {
-      error({ statusCode: 400 })
-    }
-  },
+  // asyncData ({ payload, params, error, store, env }) {
+  //   const tag = payload || store.state.tags.find(tag => tag.fields.slug === params.slug)
+  //   if (tag) {
+  //     const relatedPosts = store.getters.associateTagPosts(tag)
+  //     return { tag, relatedPosts }
+  //   } else {
+  //     error({ statusCode: 400 })
+  //   }
+  // },
   computed: {
+  ...mapGetters(['testLinkTo','setEyeCatch', 'linkTo','getTestTags']),
+
+  getTag() {
+    const post = this.$store.getters.getTestTags
+    const tag = []
+    Object.keys(post).forEach((key) => {
+        if (post[key].id === this.$route.params.slug)
+        {
+          tag.push(post[key])
+        }
+    });
+    return tag
+  },
+
+  testPost() {
+    const post = this.$store.getters.getTestPost
+    const blog = []
+    Object.keys(post).forEach((key) => {
+
+          Object.keys(post[key].tags).forEach((idKey) => {
+
+            // console.log(idKey)
+            // console.log(post[key].tags[idKey].id)
+
+            if (post[key].tags[idKey].id === this.$route.params.slug)
+            {
+              blog.push(post[key])
+            }
+          });
+
+    });
+    // console.log(blog)
+    return blog
+  },
+
     addBreads () {
-      // console.log(this.relatedPosts)
       return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags' }]
     },
     ...mapState(['posts']),
     ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
     categoryColor () {
       return (category) => {
-        switch (category.fields.name) {
+        switch (category.name) {
           case 'Beer': return '#FFEE58'
           case 'Brewery': return '#A7FFEB'
           case 'Shop・Service': return 'deep-purple lighten-3'

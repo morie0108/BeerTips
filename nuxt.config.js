@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+const { API_KEY, BLOG_API_URL, TAG_API_URL, CATEGORY_API_URL } = process.env;
 import axios from 'axios'
 
 require('dotenv').config()
@@ -26,8 +27,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    'plugins/init',
     'plugins/contentful',
-    'plugins/components'
+    'plugins/components',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -162,6 +164,17 @@ export default {
       apiKey: process.env.API_KEY,
     },
     mode: process.env.NODE_ENV === 'production' ? 'server' : 'all',
+  },
+
+  publicRuntimeConfig: {
+    blogApiUrl: BLOG_API_URL,
+    tagApiUrl: TAG_API_URL,
+    categoryApiUrl: CATEGORY_API_URL,
+    apiKey: API_KEY,
+    // apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
+  },
+  privateRuntimeConfig: {
+    apiKey: API_KEY,
   },
 
 }

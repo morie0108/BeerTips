@@ -11,6 +11,6 @@ export default {
     {
       name: 'ABOUT(準備中)',
       url: '#'
-    },
+    }
   ]
 }

@@ -3,8 +3,8 @@
 <v-container fluid>
   <breadcrumb :breadcrumbs="breadcrumbs" />
 
-    <div v-for="content in testPost" :key="content.id">
-      <p class="publishData">{{ content.updatedAt }} 更新</p>
+    <div v-for="content in post" :key="content.id">
+      <p class="publishData">{{ content.updatedAt.substr( 0, 10 ) }} 更新</p>
       <h2>{{ content.title }}</h2>
 
       <v-card-text>
@@ -12,7 +12,7 @@
         <v-chip
           v-for="(tag) in content.tags"
           :key="tag.id"
-          :to="testLinkTo('tags', tag)"
+          :to="linkTo('tags', tag)"
           small
           label
           outlined
@@ -67,33 +67,20 @@ import Breadcrumb from '~/components/Breadcrumb.vue'
 export default {
 
   computed: {
-
-
-    ...mapGetters(['testSetEyeCatch','testLinkTo','setEyeCatch', 'linkTo','getTestTags']),
-
-
-  testPost() {
-    const post = this.$store.getters.getTestPost
-    const blog = []
-    Object.keys(post).forEach((key) => {
-        if (post[key].id === this.$route.params.slug)
-        {
-          blog.push(post[key])
-        }
-    });
+    ...mapGetters(['linkTo']),
+    post() {
+      const post = this.$store.getters.getPosts
+      const blog = []
+      Object.keys(post).forEach((key) => {
+          if (post[key].id === this.$route.params.slug)
+          {
+            blog.push(post[key])
+          }
+      });
     return blog
   },
-
-  // testTag() {
-  //   return this.$store.getters['getTestTags']
-  // },
-
-  // testCategory() {
-  //   return this.$store.getters['getTestCategories']
-  // },
-
   breadcrumbs: function() {
-   const test =  this.testPost
+   const post =  this.post
         return {
           data: [
             {
@@ -103,17 +90,16 @@ export default {
             },
             {
               icon: 'mdi-folder-outline',
-              name: test[0].category.name,
-              path: '/categories/' + test[0].category.id
+              name: post[0].category.name,
+              path: '/categories/' + post[0].category.id
             },
             {
-              name: test[0].title
+              name: post[0].title
             }
           ]
         }
       }
     },
-
   }
 
 
@@ -144,6 +130,15 @@ export default {
   }
   .v-card__text{
     text-align: center;
+  }
+  .v-application ul {
+    padding-left: 0;
+    margin: 0 auto;
+    width: 360px;
+
+    @media only screen and (max-width:370px) {
+      width: 300px;
+    }
   }
   ::v-deep .contents{
     max-width: 540px;

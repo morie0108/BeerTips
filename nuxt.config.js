@@ -1,9 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
-const { API_KEY, BLOG_API_URL, TAG_API_URL, CATEGORY_API_URL } = process.env;
+const { API_KEY, POST_API_URL, TAG_API_URL, CATEGORY_API_URL } = process.env;
 import axios from 'axios'
 
 require('dotenv').config()
-const client = require('./plugins/contentful').default
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
@@ -28,7 +27,6 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     'plugins/init',
-    'plugins/contentful',
     'plugins/components',
   ],
 
@@ -62,19 +60,6 @@ export default {
       }
     ]
   ],
-
-  env: {
-    // contentful
-    CTF_SPACE_ID: process.env.CTF_SPACE_ID,
-    CTF_BLOG_POST_TYPE_ID: process.env.CTF_BLOG_POST_TYPE_ID,
-    CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
-  },
-
-  router: {
-    middleware: [
-      'getContentful'
-    ]
-  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
@@ -117,37 +102,7 @@ export default {
   },
 
   generate: {
-    routes() {
-      return Promise.all([
-        client.getEntries({
-          content_type: process.env.CTF_BLOG_POST_TYPE_ID
-        }),
-        client.getEntries({
-          content_type: 'category'
-        }),
-        client.getEntries({
-          content_type: 'tag'
-        })
-      ]).then(([posts,categories,tags]) => {
-        return [
-          ...posts.items.map((post) => {
-            return {
-              route: `/posts/${post.fields.slug}`,
-              payload: post
-            }
-          }),
-          ...categories.items.map((category) => {
-            return {
-              route: `/categories/${category.fields.slug}`,
-              payload: category
-            }
-          }),
-          ...tags.items.map((tag) => {
-            return { route: `/tags/${tag.fields.slug}`, payload: tag }
-          })
-        ]
-      })
-    }
+
   },
 
   markdownit: {
@@ -167,11 +122,10 @@ export default {
   },
 
   publicRuntimeConfig: {
-    blogApiUrl: BLOG_API_URL,
+    postApiUrl: POST_API_URL,
     tagApiUrl: TAG_API_URL,
     categoryApiUrl: CATEGORY_API_URL,
     apiKey: API_KEY,
-    // apiKey: process.env.NODE_ENV !== 'production' ? API_KEY : undefined
   },
   privateRuntimeConfig: {
     apiKey: API_KEY,

@@ -16,9 +16,9 @@
         md="10"
         xl="8"
       >
-        <v-row v-if="testPost.length">
+        <v-row v-if="post.length">
           <v-col
-            v-for="content in testPost"
+            v-for="content in post"
             :key="content.id"
             cols="12"
             sm="6"
@@ -44,7 +44,7 @@
                     small
                     light
                     :color="categoryColor(content.category)"
-                    :to="testLinkTo('categories', content.category)"
+                    :to="linkTo('categories', content.category)"
                     class="font-weight-bold"
                   >
                     {{ content.category.name }}
@@ -53,12 +53,12 @@
               </v-img>
 
               <v-card-text>
-                {{ content.updatedAt }}
+                {{ content.updatedAt.substr( 0, 10 ) }} 更新
               </v-card-text>
 
               <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
-                  {{ content.body }}
+                  {{ content.discription }}
                 </v-list-item-subtitle>
               </v-list-item>
 
@@ -67,7 +67,7 @@
                   <v-chip
                     v-for="(tag) in content.tags"
                     :key="tag.id"
-                    :to="testLinkTo('tags', tag)"
+                    :to="linkTo('tags', tag)"
                     small
                     label
                     outlined
@@ -91,7 +91,7 @@
                 <v-btn
                   text
                   color="black"
-                  :to="testLinkTo('posts',content)"
+                  :to="linkTo('posts',content)"
                 >
                   この記事をみる
                 </v-btn>
@@ -109,27 +109,15 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-import draftChip from '~/components/posts/draftChip'
+import { mapGetters } from 'vuex'
+
 
 export default {
-    components: {
-    draftChip,
-  },
-  // asyncData ({ payload, params, error, store, env }) {
-  //   const tag = payload || store.state.tags.find(tag => tag.fields.slug === params.slug)
-  //   if (tag) {
-  //     const relatedPosts = store.getters.associateTagPosts(tag)
-  //     return { tag, relatedPosts }
-  //   } else {
-  //     error({ statusCode: 400 })
-  //   }
-  // },
   computed: {
-  ...mapGetters(['testLinkTo','setEyeCatch', 'linkTo','getTestTags']),
+  ...mapGetters(['linkTo']),
 
   getTag() {
-    const post = this.$store.getters.getTestTags
+    const post = this.$store.getters.getTags
     const tag = []
     Object.keys(post).forEach((key) => {
         if (post[key].id === this.$route.params.slug)
@@ -140,16 +128,12 @@ export default {
     return tag
   },
 
-  testPost() {
-    const post = this.$store.getters.getTestPost
+  post() {
+    const post = this.$store.getters.getPosts
     const blog = []
     Object.keys(post).forEach((key) => {
 
           Object.keys(post[key].tags).forEach((idKey) => {
-
-            // console.log(idKey)
-            // console.log(post[key].tags[idKey].id)
-
             if (post[key].tags[idKey].id === this.$route.params.slug)
             {
               blog.push(post[key])
@@ -157,15 +141,12 @@ export default {
           });
 
     });
-    // console.log(blog)
     return blog
   },
 
     addBreads () {
       return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags' }]
     },
-    ...mapState(['posts']),
-    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo']),
     categoryColor () {
       return (category) => {
         switch (category.name) {
@@ -200,5 +181,10 @@ export default {
   }
   .title {
     justify-content: center;
+  }
+  .v-application ul {
+    padding-left: 0;
+    margin: 0 auto;
+    width: 300px;
   }
 </style>

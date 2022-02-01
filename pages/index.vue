@@ -11,7 +11,7 @@
         md="10"
         xl="8"
       >
-        <v-row v-if="testPost.length">
+        <v-row v-if="post.length">
           <v-col
             v-for="post in displayLists"
             :key="post.index"
@@ -39,7 +39,7 @@
                     small
                     light
                     :color="categoryColor(post.category)"
-                    :to="testLinkTo('categories', post.category)"
+                    :to="linkTo('categories', post.category)"
                     class="font-weight-bold"
                   >
                     {{ post.category.name }}
@@ -48,12 +48,12 @@
               </v-img>
 
               <v-card-text>
-                {{ post.updatedAt }}
+                {{ post.updatedAt.substr( 0, 10 ) }} 更新
               </v-card-text>
 
               <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
-                {{ post.updatedAt }}
+                 {{ post.discription }}
                 </v-list-item-subtitle>
               </v-list-item>
 
@@ -62,7 +62,7 @@
                   <v-chip
                     v-for="(tag) in post.tags"
                     :key="tag.id"
-                    :to="testLinkTo('tags', tag)"
+                    :to="linkTo('tags', tag)"
                     small
                     label
                     outlined
@@ -86,7 +86,7 @@
                 <v-btn
                   text
                   color="black"
-                  :to="testLinkTo('posts',post)"
+                  :to="linkTo('posts',post)"
                 >
                   この記事をみる
                 </v-btn>
@@ -110,7 +110,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import draftChip from '~/components/posts/draftChip'
 import headerImage from '~/components/contents/headerImage'
 
 
@@ -124,15 +123,13 @@ export default {
     }
   },
   components: {
-    draftChip,
     headerImage,
   },
   computed: {
-    ...mapState(['posts','testPosts']),
-    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo','testLinkTo']),
-    testPost() {
-    const blog = this.$store.getters.getTestPost
-    // console.log(blog)
+    ...mapState(['posts']),
+    ...mapGetters(['linkTo']),
+    post() {
+    const blog = this.$store.getters.getPosts
     return blog
   },
     categoryColor () {
@@ -147,15 +144,14 @@ export default {
     }
   },
   mounted (){
-    this.testPosts
-    this.length = Math.ceil(this.testPosts.length/this.pageSize);
-    this.displayLists = this.testPosts.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
-    // console.log(this.displayLists)
+    this.posts
+    this.length = Math.ceil(this.posts.length/this.pageSize);
+    this.displayLists = this.posts.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
 
   },
   methods: {
     pageChange: function(pageNumber){
-      this.displayLists = this.testPosts.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
+      this.displayLists = this.posts.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
       this.returnTop()
     },
     returnTop() {

@@ -37,7 +37,7 @@
                   mdi-tag-outline
                 </v-icon>
                 <nuxt-link
-                  :to="testLinkTo('tags', item)"
+                  :to="linkTo('tags', item)"
                 >
                   {{ item.name }}
                 </nuxt-link>
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
@@ -87,23 +87,19 @@ export default {
     ]
   }),
   computed: {
-    ...mapState(['tags']),
-    ...mapGetters(['testLinkTo']),
+    ...mapGetters(['linkTo']),
     addBreads () {
       return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags', disabled: true, iconColor: 'grey' }]
     },
     tagItems () {
       const tags = []
-      const post = this.$store.getters.getTestTags
+      const post = this.$store.getters.getTags
       Object.keys(post).forEach((key) => {
 
           const tag = post[key]
-          // console.log(tag)
-          //tag.fields にpostcount を作成する必要がある
-          tag.postcount = this.$store.getters.testAssociateTagPosts(tag).length
+          tag.postcount = this.$store.getters.associateTagPosts(tag).length
           tags.push(tag)
     });
-      // console.log(tags)
       return tags
     }
   }
@@ -113,5 +109,10 @@ export default {
 <style lang="scss" scoped>
   .v-application a {
       color: black;
+  }
+  .v-application ul {
+    padding-left: 0;
+    margin: 0 auto;
+    width: 300px;
   }
 </style>

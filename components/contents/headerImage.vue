@@ -4,8 +4,8 @@
         <img :src="imgSrc">
       </div>
       <div class="copy">
-        <h1>まだ見ぬクラフトビールと出会おう</h1>
-        <p>BeerTips では日本全国にある500以上のブルワリーで創られる、ビールの情報をお届けします。</p>
+        <h1>にゃんと、日本のブルワリーは500を超える。</h1>
+        <p>「Beer Tips」は、ジャパニーズクラフトビールを楽しむヒントお届けします！</p>
       <copy>
     </div>
 </template>
@@ -15,7 +15,7 @@
 export default {
   data(){
     return{
-      image: "pale-705.png",
+      image: "visual_cat.png",
     }
   },
   computed: {
@@ -31,11 +31,11 @@ export default {
 .discription{
   width: 100%;
   margin-bottom: 20px;
-  background-color: #030c20;
-    @media only screen and (min-width:960px) {
-      display: flex;
-      justify-content: center;
-    }
+  background-color: #fff;
+    // @media only screen and (min-width:960px) {
+    //   display: flex;
+    //   justify-content: center;
+    // }
     .copy {
       margin: auto 6px;
     }
@@ -46,7 +46,7 @@ export default {
   text-align: center;
 }
 h1 {
-  color: aliceblue;
+  color: #000612;
   font-size: large;
   text-align: center;
   margin: 10px;
@@ -57,7 +57,8 @@ h1 {
 p {
   // background-color: #f7f8ff;
   // border-radius: 16px;
-  color: aliceblue;
+  color: #000612;
+  font-size: small;
   max-width: 540px;
   margin: auto;
   padding: 12px 10px;
@@ -68,11 +69,12 @@ p {
   }
 }
   img {
-      max-width: 140px;
-      max-height: 140px;
+      max-width: 360px;
+      @media only screen and (max-width:360px) {
+      max-width: 300px;
+    }
       @media only screen and (min-width:960px) {
-      max-width: 200px;
-      max-height: 200px;
+      max-width: 680px;
     }
   }
 </style>

@@ -5,7 +5,7 @@
       </div>
       <div class="copy">
         <h1>にゃんと、日本のブルワリーは500を超える。</h1>
-        <p>「Beer Tips」は、ジャパニーズクラフトビールを楽しむヒントお届けします！</p>
+        <p>BeerTips！僕たちはジャパニーズクラフトビールを楽しむヒントをお届けします。</p>
       <copy>
     </div>
 </template>
@@ -47,7 +47,7 @@ export default {
 }
 h1 {
   color: #000612;
-  font-size: large;
+  font-size: medium;
   text-align: center;
   margin: 10px;
   @media only screen and (min-width:960px) {
@@ -59,12 +59,14 @@ p {
   // border-radius: 16px;
   color: #000612;
   font-size: small;
-  max-width: 540px;
+  max-width: 300px;
   margin: auto;
   padding: 12px 10px;
   text-align: center;
+
   @media only screen and (min-width:960px) {
     font-size: large;
+    max-width: 480px;
     padding: 24px 16px;
   }
 }

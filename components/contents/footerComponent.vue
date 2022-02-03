@@ -27,7 +27,7 @@
       </v-card-text>
 
       <v-card-text class="black--text pt-0">
-      Illustration by <a class="black--text" href="https://icons8.com/illustrations/author/603d1fd6123f9916a4db9ee6">  Irina Molchanova</a> from <a  class="black--text" href="https://icons8.com/illustrations">Ouch!</a>
+        Illustration by <a class="black--text" href="https://icons8.com/illustrations/author/5c07e68d82bcbc0092519bb6">Icons 8</a> from <a class="black--text" href="https://icons8.com/illustrations">Ouch!</a>
       </v-card-text>
 
       <v-divider></v-divider>

@@ -152,8 +152,9 @@ export default {
         switch (category.name) {
           case 'Beer': return '#FFEE58'
           case 'Brewery': return '#A7FFEB'
-          case 'Shop・Service': return 'deep-purple lighten-3'
-          default: return 'grey darken-3'
+          case 'Shop・Service': return '#B39DDB'
+          case 'Tips': return '#FFB74D'
+          default: return '#424242'
         }
       }
     }

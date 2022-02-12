@@ -28,6 +28,8 @@
 
       <v-card-text class="black--text pt-0">
         Illustration by <a class="black--text" href="https://icons8.com/illustrations/author/5c07e68d82bcbc0092519bb6">Icons 8</a> from <a class="black--text" href="https://icons8.com/illustrations">Ouch!</a>
+        <br>
+        Reference books by <a class="black--text" href="https://www.kadokawa.co.jp/product/321804000001/">恋するクラフトビール</a>
       </v-card-text>
 
       <v-divider></v-divider>

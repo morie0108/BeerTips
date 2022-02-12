@@ -110,7 +110,6 @@ export default {
     font-size: x-large;
     margin: 10px;
     text-align: center;
-    text-decoration: underline;
   }
   .publishData {
     margin: auto;

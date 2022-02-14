@@ -64,14 +64,16 @@ export const mutations = {
 export const actions = {
 
   async asyncData({ commit, $config }) {
+    const postApiUrl = `${this.$config.postApiUrl}?limit=30`
     const post = await axios.get(
-      this.$config.postApiUrl,
+      postApiUrl,
       {
         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey },
       });
 
+    const tagApiUrl = `${this.$config.postApiUrl}?limit=30`
     const tag = await axios.get(
-      this.$config.tagApiUrl,
+      tagApiUrl,
       {
         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey }
       });

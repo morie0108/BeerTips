@@ -67,7 +67,7 @@ export const actions = {
     const post = await axios.get(
       this.$config.postApiUrl,
       {
-        headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey }
+        headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey },
       });
 
     const tag = await axios.get(
@@ -84,5 +84,6 @@ export const actions = {
       commit('setPosts', post.data.contents)
       commit('setTags', tag.data.contents)
       commit('setCategories', category.data.contents)
+
   }
 }

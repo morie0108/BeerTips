@@ -1,7 +1,6 @@
 <template>
   <div>
     <breadcrumbs :add-items="addBreads" />
-
     <v-container>
       <v-row
         justify="center"

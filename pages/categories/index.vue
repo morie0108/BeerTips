@@ -34,7 +34,7 @@
             >
               <template v-slot:[`item.name`]="{ item }">
                 <v-icon size="18">
-                  mdi-tag-outline
+                  mdi-folder-outline
                 </v-icon>
                 <nuxt-link
                   :to="linkTo('categories', item)"
@@ -74,7 +74,7 @@ export default {
     totalVisible: 7,
     headers: [
       {
-        text: 'タグ',
+        text: 'カテゴリ',
         align: 'left',
         value: 'name'
       },
@@ -89,7 +89,7 @@ export default {
   computed: {
     ...mapGetters(['linkTo']),
     addBreads () {
-      return [{ icon: 'mdi-tag-outline', text: 'タグ一覧', to: '/tags', disabled: true, iconColor: 'grey' }]
+      return [{ icon: 'mdi-folder-outline', text: 'カテゴリ一覧', to: '/categories', disabled: true, iconColor: 'grey' }]
     },
     categoryItems () {
       const categories = []

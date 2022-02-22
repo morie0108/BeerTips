@@ -71,7 +71,7 @@ export const actions = {
         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey },
       });
 
-    const tagApiUrl = `${this.$config.postApiUrl}?limit=30`
+    const tagApiUrl = `${this.$config.tagApiUrl}?limit=30`
     const tag = await axios.get(
       tagApiUrl,
       {

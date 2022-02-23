@@ -52,14 +52,12 @@ export default {
     '@nuxt/content',
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
-    [
-      '@nuxtjs/google-gtag',
-      {
-        id: process.env.GAID,
-        debug: false
-      }
-    ]
+    '@nuxtjs/google-gtag',
   ],
+  'google-gtag':{
+   id: process.env.GAID,
+   debug: false
+   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},

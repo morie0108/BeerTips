@@ -1,30 +1,65 @@
 <template>
     <div class="discription">
-      <div class="mainImg">
+      <!-- <div v-if="mobile" class="mainImg">
         <img :src="imgSrc">
       </div>
+      <div v-else class="mainImg">
+        <img :src="imgSrcPc">
+      </div> -->
+      <picture>
+        <source media="(max-width: 760px)" srcset="@/assets/images/main_visual.png">
+        <source media="(max-width: 960px)" srcset="@/assets/images/main_visual_3.png">
+        <img src="@/assets/images/main_visual_2.png" alt="メイン画像">
+      </picture>
       <div class="copy">
         <h1>にゃんと、日本のブルワリーは500を超える。</h1>
         <p>Cheers！僕たちはジャパニーズクラフトビールを楽しむTipsをお届けします。<br>クラフトビールを気になりはじめた、そんな方にオススメのブログです♪</p>
-      <copy>
+      </div>
     </div>
 </template>
 
-<script>
+// <script>
 
-export default {
-  data(){
-    return{
-      image: "visual_cat.png",
-    }
-  },
-  computed: {
-    imgSrc () {
-      return require("../../assets/images/" + this.image)
-    },
-  }
-}
-</script>
+// export default {
+//   data(){
+//     return{
+//       image: "main_visual.png",
+//       imagePc: "main_visual_2.png",
+//       mobile: {}
+//     }
+//   },
+//   computed: {
+//     imgSrc () {
+//       return require("../../assets/images/" + this.image)
+//     },
+//     imgSrcPc () {
+//       return require("../../assets/images/" + this.imagePc)
+//     },
+//   },
+//   methods: {
+//       handleResize: function() {
+//         console.log(window.innerWidth)
+//           if (window.innerWidth <= 960) {
+//               this.mobile = true
+//           } else {
+//               this.mobile = false
+//           }
+//       }
+//   },
+//   created() {
+//     if (process.browser){
+//       console.log("created")
+//       window.addEventListener('resize', this.handleResize)
+//       this.handleResize()
+//     }
+//    },
+//   destroyed() {
+//     if (process.browser){
+//       window.removeEventListener('resize', this.handleResize)
+//     }
+//   }
+// }
+// </script>
 
 <style lang="scss" scoped>
 
@@ -39,12 +74,11 @@ export default {
     .copy {
       margin: auto 6px;
     }
-
-}
-
-.mainImg {
   text-align: center;
+
 }
+
+
 h1 {
   color: #000612;
   font-size: medium;
@@ -71,12 +105,7 @@ p {
   }
 }
   img {
-      max-width: 360px;
-      @media only screen and (max-width:360px) {
-      max-width: 300px;
-    }
-      @media only screen and (min-width:960px) {
-      max-width: 680px;
-    }
+    display: block;
+    width: 100%;
   }
 </style>

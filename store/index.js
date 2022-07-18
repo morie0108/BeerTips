@@ -64,28 +64,82 @@ export const mutations = {
 export const actions = {
 
   async asyncData({ commit, $config }) {
-    const postApiUrl = `${this.$config.postApiUrl}?limit=30`
+
+    const postApiUrl = `${this.$config.postApiUrl}?limit=50`
     const post = await axios.get(
       postApiUrl,
       {
         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey },
       });
 
-    const tagApiUrl = `${this.$config.tagApiUrl}?limit=30`
+    const tagApiUrl = `${this.$config.tagApiUrl}?limit=50`
     const tag = await axios.get(
       tagApiUrl,
       {
         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey }
       });
 
+
+    const categoryApiUrl = `${this.$config.categoryApiUrl}?limit=50`
     const category = await axios.get(
-      this.$config.categoryApiUrl,
+      categoryApiUrl,
       {
         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey }
       });
+
       commit('setPosts', post.data.contents)
       commit('setTags', tag.data.contents)
       commit('setCategories', category.data.contents)
 
   }
 }
+
+
+// export const actions = {
+
+//   async asyncData({ commit, $config }) {
+//     const getAllContents = async (limit=40, offset=0) => {
+//       const postApiUrl = this.$config.postApiUrl
+
+//       const post = await axios.get(
+//         postApiUrl,
+//         {
+//           headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey },
+//           params: {
+//             offset,
+//             limit
+//           }
+//         }
+//       )
+
+//       postContents.push(...post.data.contents)
+
+//       if (post.data.offset + post.data.limit < post.data.totalCount) {
+//         getAllContents(post.data.limit, post.data.offset + post.data.limit)
+//       }
+
+//     }
+
+//     const postContents = []
+//     getAllContents()
+
+//     const tagApiUrl = `${this.$config.tagApiUrl}?limit=100`
+//     const tag = await axios.get(
+//       tagApiUrl,
+//       {
+//         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey }
+//       });
+
+//     const categoryApiUrl = `${this.$config.categoryApiUrl}?limit=50`
+//     const category = await axios.get(
+//       categoryApiUrl,
+//       {
+//         headers: { 'X-MICROCMS-API-KEY': this.$config.apiKey }
+//       });
+
+//       commit('setPosts', postContents)
+//       commit('setTags', tag.data.contents)
+//       commit('setCategories', category.data.contents)
+
+//   }
+// }

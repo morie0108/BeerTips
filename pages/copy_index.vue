@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
     <headerImage />
-    <itemComponent />
     <h2>記事一覧</h2>
     <v-row
       justify="center"
@@ -112,7 +111,6 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import headerImage from '~/components/contents/headerImage'
-import itemComponent from '~/components/contents/itemComponent'
 
 
 export default {
@@ -126,7 +124,6 @@ export default {
   },
   components: {
     headerImage,
-    itemComponent,
   },
   computed: {
     ...mapState(['posts']),

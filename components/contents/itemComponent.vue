@@ -1,8 +1,6 @@
 <template>
   <v-container fluid>
-    <headerImage />
-    <itemComponent />
-    <h2>記事一覧</h2>
+    <h2>ビール紹介</h2>
     <v-row
       justify="center"
     >
@@ -100,19 +98,11 @@
         </div>
       </v-col>
     </v-row>
-    <v-pagination
-      v-model = "page"
-      :length = "length"
-      @input = "pageChange"
-      class = "pageNation"
-    ></v-pagination>
   </v-container>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import headerImage from '~/components/contents/headerImage'
-import itemComponent from '~/components/contents/itemComponent'
 
 
 export default {
@@ -120,14 +110,15 @@ export default {
     return{
       page: 1,
       length:0,
+      itemLists:[],
       displayLists: [],
-      pageSize: 10,
+      pageSize: 5,
     }
   },
-  components: {
-    headerImage,
-    itemComponent,
-  },
+  // components: {
+  //   headerImage,
+  //   itemComponent,
+  // },
   computed: {
     ...mapState(['posts']),
     ...mapGetters(['linkTo']),
@@ -139,30 +130,24 @@ export default {
       return (category) => {
         switch (category.name) {
           case 'Beer': return '#FFEE58'
-          case 'Brewery': return '#A7FFEB'
-          case 'Shop・Service': return '#B39DDB'
-          case 'Tips': return '#FFB74D'
           default: return '#424242'
         }
       }
     }
   },
   mounted (){
-    this.posts
-    this.length = Math.ceil(this.posts.length/this.pageSize);
-    this.displayLists = this.posts.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
-
+    this.getItemLists();
+    this.displayLists =this.itemLists.slice(this.pageSize*(this.page -1), this.pageSize*(this.page));
   },
   methods: {
-    pageChange: function(pageNumber){
-      this.displayLists = this.posts.slice(this.pageSize*(pageNumber -1), this.pageSize*(pageNumber));
-      this.returnTop()
-    },
-    returnTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'auto'
-      })
+    getItemLists(){
+      // const result = [];
+      for (let [key, value] of Object.entries(this.posts)) {
+        const categories = 'beer'
+        if(value.category.id === categories) {
+          this.itemLists.push(value);
+        }
+      }
     }
   }
 }
@@ -176,10 +161,6 @@ export default {
     padding: 10px 0px;
     width: 90%;
     margin: auto;
-  }
-  .pageNation{
-    margin-top: 20px;
-    margin-bottom: 32px;
   }
   .row{
     padding: 10px

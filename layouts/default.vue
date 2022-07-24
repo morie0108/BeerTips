@@ -16,7 +16,7 @@ export default {
   name: 'default',
   components: {
     headerComponent,
-    footerComponent
+    footerComponent,
   }
 }
 </script>

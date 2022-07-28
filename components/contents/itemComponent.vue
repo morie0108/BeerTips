@@ -11,88 +11,66 @@
         xl="8"
       >
         <v-row v-if="post.length">
-          <v-col
-            v-for="post in displayLists"
-            :key="post.index"
-            cols="12"
-            sm="6"
-            lg="4"
-            xl="3"
+          <v-carousel
+            :height="height"
+            style="margin-bottom: 40px;"
           >
-            <v-card
-              max-width="400"
-              class="mx-auto"
+            <v-carousel-item
+              v-for="post in displayLists"
+              :key="post.index"
+              reverse-transition="fade-transition"
+              transition="fade-transition"
             >
-              <v-card-title class="align-end fill-height font-weight-bold title">
-                {{ post.title }}
-              </v-card-title>
-              <v-img
-                :src="post.image.url"
-                :alt="post.image.title"
-                :aspect-ratio="16/9"
-                max-height="200"
-                class="white--text"
-              >
-                <v-card-text>
-                  <v-chip
-                    small
-                    light
-                    :color="categoryColor(post.category)"
-                    :to="linkTo('categories', post.category)"
-                    class="font-weight-bold"
-                  >
-                    {{ post.category.name }}
-                  </v-chip>
-                </v-card-text>
-              </v-img>
-
-              <v-card-text>
-                {{ post.updatedAt.substr( 0, 10 ) }} 更新
-              </v-card-text>
-
-              <v-list-item three-line style="min-height: unset;">
-                <v-list-item-subtitle>
-                 {{ post.discription }}
-                </v-list-item-subtitle>
-              </v-list-item>
-
-              <v-card-text>
-                <template v-if="post.tags">
-                  <v-chip
-                    v-for="(tag) in post.tags"
-                    :key="tag.id"
-                    :to="linkTo('tags', tag)"
-                    small
-                    label
-                    outlined
-                    class="ma-1"
-                  >
-
-                    <v-icon
-                      left
-                      size="18"
-                      color="grey"
-                    >
-                      mdi-label
-                    </v-icon>
-                    {{ tag.name }}
-                  </v-chip>
-                </template>
-              </v-card-text>
-
-              <v-card-actions>
-                <v-spacer />
-                <v-btn
-                  text
-                  color="black"
+              <v-card style="width: auto; height: 360px;">
+                <v-card-title class="align-end font-weight-bold title">
+                  {{ post.title }}
+                </v-card-title>
+                <nuxt-link
                   :to="linkTo('posts',post)"
                 >
-                  この記事をみる
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
+                  <v-img
+                  :src="post.image.url"
+                  :alt="post.image.title"
+                  class="white--text"
+                  >
+                    <v-card-text>
+                      <v-chip
+                        small
+                        light
+                        :color="categoryColor(post.category)"
+                        :to="linkTo('categories', post.category)"
+                        class="font-weight-bold"
+                      >
+                        {{ post.category.name }}
+                      </v-chip>
+                    </v-card-text>
+                      <!-- <v-progress-circular
+                        indeterminate
+                        color="blue-grey"
+                      ></v-progress-circular> -->
+                  </v-img>
+                </nuxt-link>
+                <v-list-item three-line style="min-height: unset;">
+                  <v-list-item-subtitle>
+                  {{ post.discription }}
+                  </v-list-item-subtitle>
+                </v-list-item>
+
+                <!-- <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    text
+                    color="black"
+                    :to="linkTo('posts',post)"
+                  >
+                    この記事をみる
+                  </v-btn>
+                </v-card-actions> -->
+              </v-card>
+            </v-carousel-item>
+          </v-carousel>
         </v-row>
+
         <div v-else class="text-center">
           投稿された記事はありません。
         </div>
@@ -103,7 +81,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-
 
 export default {
   data(){
@@ -125,7 +102,7 @@ export default {
     post() {
     const blog = this.$store.getters.getPosts
     return blog
-  },
+    },
     categoryColor () {
       return (category) => {
         switch (category.name) {
@@ -133,7 +110,18 @@ export default {
           default: return '#424242'
         }
       }
-    }
+    },
+    height () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+            return 400
+        case 'sm':
+        case 'md':
+        case 'lg':
+        case 'xl':
+          return 500
+      }
+    },
   },
   mounted (){
     this.getItemLists();
@@ -153,7 +141,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
   .container{
     padding: 0px;
   }
@@ -174,9 +162,22 @@ h2 {
   text-align: center;
 }
 .v-card__subtitle, .v-card__text, .v-card__title {
+    display: block;
     padding: 8px 12px;
+}
+.v-list-item__subtitle {
+    padding-top: 10px;
+}
+.v-carousel {
+    width: auto;
+}
+.v-image {
+  height: auto;
 }
 .title {
   justify-content: center;
+}
+.v-window {
+  margin: auto;
 }
 </style>

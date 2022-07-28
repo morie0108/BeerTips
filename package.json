@@ -21,10 +21,13 @@
     "@nuxtjs/pwa": "^3.3.5",
     "contentful": "^9.1.4",
     "core-js": "^3.15.1",
+    "hooper": "^0.3.4",
     "markdown-it-br": "^1.0.0",
     "microcms-js-sdk": "^2.0.0",
     "nuxt": "^2.15.7",
     "nuxt-microcms-module": "^2.0.0",
+    "swiper": "5.x",
+    "vue-awesome-swiper": "^5.0.1",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {

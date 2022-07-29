@@ -2,6 +2,7 @@
   <v-container fluid>
     <headerImage />
     <itemComponent />
+    <bunnerComponent />
     <h2>記事一覧</h2>
     <v-row
       justify="center"
@@ -113,6 +114,7 @@
 import { mapState, mapGetters } from 'vuex'
 import headerImage from '~/components/contents/headerImage'
 import itemComponent from '~/components/contents/itemComponent'
+import bunnerComponent from '~/components/contents/bunnerComponent'
 
 
 export default {
@@ -127,6 +129,7 @@ export default {
   components: {
     headerImage,
     itemComponent,
+    bunnerComponent
   },
   computed: {
     ...mapState(['posts']),
@@ -191,6 +194,7 @@ export default {
 h2 {
   font-size: large;
   text-align: center;
+  margin: 16px;
 }
 .v-card__subtitle, .v-card__text, .v-card__title {
     padding: 8px 12px;

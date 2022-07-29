@@ -65,7 +65,6 @@
 
 .discription{
   width: 100%;
-  margin-bottom: 20px;
   background-color: #fff;
     // @media only screen and (min-width:960px) {
     //   display: flex;
@@ -84,6 +83,7 @@ h1 {
   font-size: medium;
   text-align: center;
   margin: 10px;
+  padding-top: 10px;
   @media only screen and (min-width:960px) {
     font-size: x-large;
   }

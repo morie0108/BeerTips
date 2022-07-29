@@ -1,5 +1,8 @@
 <template>
-  <v-container fluid>
+  <v-container
+    fluid
+    class="amber accent-3"
+  >
     <h2>ビール紹介</h2>
     <v-row
       justify="center"
@@ -13,7 +16,7 @@
         <v-row v-if="post.length">
           <v-carousel
             :height="height"
-            style="margin-bottom: 40px;"
+            style="width: 360px; margin-bottom: 40px;"
           >
             <v-carousel-item
               v-for="post in displayLists"
@@ -33,7 +36,7 @@
                   :alt="post.image.title"
                   class="white--text"
                   >
-                    <v-card-text>
+                    <!-- <v-card-text>
                       <v-chip
                         small
                         light
@@ -43,7 +46,7 @@
                       >
                         {{ post.category.name }}
                       </v-chip>
-                    </v-card-text>
+                    </v-card-text> -->
                       <!-- <v-progress-circular
                         indeterminate
                         color="blue-grey"
@@ -114,12 +117,11 @@ export default {
     height () {
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
-            return 400
         case 'sm':
         case 'md':
         case 'lg':
         case 'xl':
-          return 500
+          return 400
       }
     },
   },
@@ -151,15 +153,17 @@ export default {
     margin: auto;
   }
   .row{
-    padding: 10px
+    margin: 10px
   }
   .link-color{
     color: black;
   }
 
+
 h2 {
   font-size: large;
   text-align: center;
+  padding-top: 20px;
 }
 .v-card__subtitle, .v-card__text, .v-card__title {
     display: block;
@@ -167,9 +171,6 @@ h2 {
 }
 .v-list-item__subtitle {
     padding-top: 10px;
-}
-.v-carousel {
-    width: auto;
 }
 .v-image {
   height: auto;
@@ -179,5 +180,9 @@ h2 {
 }
 .v-window {
   margin: auto;
+}
+.row ::v-deep .v-carousel__controls {
+  background: none;
+  padding-top: 30px;
 }
 </style>

@@ -183,6 +183,6 @@ h2 {
 }
 .row ::v-deep .v-carousel__controls {
   background: none;
-  padding-top: 30px;
+  padding-top: 20px;
 }
 </style>

@@ -23,11 +23,11 @@
 <script>
 
 export default {
-  data () {
-    // return {
+  // data () {
+  //   return {
 
-    // }
-  },
+  //   }
+  // },
   // computed: {
   //   ...mapGetters(['linkTo']),
   // }
@@ -40,7 +40,7 @@ export default {
   //   padding-right: 72px;
   // }
   h2 {
-    width: 360px;
+    width: 100%;
     font-size: large;
     text-align: center;
     margin: 16px;

@@ -1,4 +1,12 @@
 <template>
+  <v-container>
+    <div>
+      <picture>
+        <source media="(max-width: 760px)" srcset="@/assets/images/main_visual.png">
+        <source media="(max-width: 960px)" srcset="@/assets/images/main_visual_3.png">
+        <img src="@/assets/images/main_visual_2.png" alt="メイン画像">
+      </picture>
+    </div>
     <div class="discription">
       <!-- <div v-if="mobile" class="mainImg">
         <img :src="imgSrc">
@@ -6,16 +14,12 @@
       <div v-else class="mainImg">
         <img :src="imgSrcPc">
       </div> -->
-      <picture>
-        <source media="(max-width: 760px)" srcset="@/assets/images/main_visual.png">
-        <source media="(max-width: 960px)" srcset="@/assets/images/main_visual_3.png">
-        <img src="@/assets/images/main_visual_2.png" alt="メイン画像">
-      </picture>
       <div class="copy">
         <h1>にゃんと、日本のブルワリーは500を超える。</h1>
         <!-- <p>Cheers！僕たちはジャパニーズクラフトビールを楽しむTipsをお届けします。<br>クラフトビールを気になりはじめた、そんな方にオススメのブログです♪</p> -->
       </div>
     </div>
+  </v-container>
 </template>
 
 // <script>
@@ -104,8 +108,11 @@ p {
     padding: 24px 16px;
   }
 }
-  img {
-    display: block;
-    width: 100%;
-  }
+img {
+  display: block;
+  width: 100%;
+}
+.container{
+  max-width: 1920px;
+}
 </style>

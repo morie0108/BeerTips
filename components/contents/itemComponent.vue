@@ -1,7 +1,7 @@
 <template>
   <v-container
     fluid
-    class="amber accent-3"
+    class="yellow lighten-1"
   >
     <h2>ビール紹介</h2>
     <v-row
@@ -24,8 +24,8 @@
               reverse-transition="fade-transition"
               transition="fade-transition"
             >
-              <v-card style="width: auto; height: 360px;">
-                <v-card-title class="align-end font-weight-bold title">
+              <v-card style="width: auto; height: 340px;">
+                <v-card-title class="align-end font-weight-bold" style="font-size:1rem">
                   {{ post.title }}
                 </v-card-title>
                 <nuxt-link
@@ -36,21 +36,6 @@
                   :alt="post.image.title"
                   class="white--text"
                   >
-                    <!-- <v-card-text>
-                      <v-chip
-                        small
-                        light
-                        :color="categoryColor(post.category)"
-                        :to="linkTo('categories', post.category)"
-                        class="font-weight-bold"
-                      >
-                        {{ post.category.name }}
-                      </v-chip>
-                    </v-card-text> -->
-                      <!-- <v-progress-circular
-                        indeterminate
-                        color="blue-grey"
-                      ></v-progress-circular> -->
                   </v-img>
                 </nuxt-link>
                 <v-list-item three-line style="min-height: unset;">
@@ -59,16 +44,6 @@
                   </v-list-item-subtitle>
                 </v-list-item>
 
-                <!-- <v-card-actions>
-                  <v-spacer />
-                  <v-btn
-                    text
-                    color="black"
-                    :to="linkTo('posts',post)"
-                  >
-                    この記事をみる
-                  </v-btn>
-                </v-card-actions> -->
               </v-card>
             </v-carousel-item>
           </v-carousel>
@@ -95,10 +70,6 @@ export default {
       pageSize: 5,
     }
   },
-  // components: {
-  //   headerImage,
-  //   itemComponent,
-  // },
   computed: {
     ...mapState(['posts']),
     ...mapGetters(['linkTo']),
@@ -131,7 +102,6 @@ export default {
   },
   methods: {
     getItemLists(){
-      // const result = [];
       for (let [key, value] of Object.entries(this.posts)) {
         const categories = 'beer'
         if(value.category.id === categories) {
@@ -146,43 +116,39 @@ export default {
 <style scoped lang="scss">
   .container{
     padding: 0px;
-  }
-  .discription{
-    padding: 10px 0px;
-    width: 90%;
-    margin: auto;
-  }
-  .row{
-    margin: 10px
-  }
-  .link-color{
-    color: black;
+
+    h2 {
+      font-size: large;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    .row{
+      margin: 10px
+    }
+
+    .row ::v-deep .v-carousel__controls {
+      background: none;
+      padding-top: 20px;
+    }
+
+    .v-card__subtitle, .v-card__text, .v-card__title {
+        display: block;
+        padding: 8px 12px;
+    }
+    .v-list-item__subtitle {
+        padding-top: 10px;
+    }
+    .v-image {
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+    .title {
+      justify-content: center;
+    }
+    .v-window {
+      margin: auto;
+    }
   }
 
-
-h2 {
-  font-size: large;
-  text-align: center;
-  padding-top: 20px;
-}
-.v-card__subtitle, .v-card__text, .v-card__title {
-    display: block;
-    padding: 8px 12px;
-}
-.v-list-item__subtitle {
-    padding-top: 10px;
-}
-.v-image {
-  height: auto;
-}
-.title {
-  justify-content: center;
-}
-.v-window {
-  margin: auto;
-}
-.row ::v-deep .v-carousel__controls {
-  background: none;
-  padding-top: 20px;
-}
 </style>

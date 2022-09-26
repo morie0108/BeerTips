@@ -1,20 +1,27 @@
 <template>
-  <v-row>
+  <v-row
+  >
     <h2>クラフトビールを楽しむ Tips！</h2>
     <v-col  cols="12" sm="8" md="4">
-      <nuxt-link to="/posts/about-craftbeer">
-        <v-img v-bind:src="require('@/assets/images/bunner_aboutBeer.png')"></v-img>
-      </nuxt-link>
+      <v-card :width="width">
+        <nuxt-link to="/posts/about-craftbeer">
+          <v-img v-bind:src="require('@/assets/images/bunner_aboutBeer.png')"></v-img>
+        </nuxt-link>
+      </v-card>
     </v-col>
     <v-col  cols="12" sm="8" md="4">
-      <nuxt-link to="/tags/beerstyle">
-        <v-img v-bind:src="require('@/assets/images/bunner_beerType.png')"></v-img>
-      </nuxt-link>
+      <v-card :width="width">
+        <nuxt-link to="/tags/beerstyle">
+          <v-img v-bind:src="require('@/assets/images/bunner_beerType.png')"></v-img>
+        </nuxt-link>
+      </v-card>
     </v-col>
     <v-col  cols="12" sm="8" md="4">
-      <nuxt-link to="/categories/beer">
-        <v-img v-bind:src="require('@/assets/images/bunner_likeBeer.png')"></v-img>
-      </nuxt-link>
+      <v-card :width="width">
+        <nuxt-link to="/categories/beer">
+          <v-img v-bind:src="require('@/assets/images/bunner_likeBeer.png')"></v-img>
+        </nuxt-link>
+      </v-card>
     </v-col>
   </v-row>
 
@@ -29,7 +36,18 @@ export default {
   //   }
   // },
   // computed: {
-  //   ...mapGetters(['linkTo']),
+  //   width () {
+  //     switch (this.$vuetify.breakpoint.name) {
+  //       case 'xs':
+  //         return 320
+  //       case 'sm':
+  //         return 500
+  //       case 'md':
+  //       case 'lg':
+  //       case 'xl':
+  //         return 280
+  //     }
+  //   },
   // }
 }
 </script>
@@ -48,7 +66,14 @@ export default {
 
   .row {
       justify-content: center;
+      margin: 0 auto;
   }
+
+  .card {
+      margin: auto;
+  }
+
+
 </style>
 
 <style

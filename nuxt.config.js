@@ -53,7 +53,11 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
     '@nuxtjs/google-gtag',
+    '@nuxtjs/gtm',
   ],
+    gtm: {
+    id: 'GTM-KSL32HK'
+  },
   'google-gtag':{
    id: process.env.GAID,
    debug: false

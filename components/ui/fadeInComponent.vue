@@ -1,6 +1,6 @@
 <template>
     <div class="fadeUp">
-      <v-slot v-show="visible"></v-slot>
+      <slot v-show="visible"></slot>
       <!-- slot から変更 -->
     </div>
 </template>

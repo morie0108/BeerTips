@@ -20,6 +20,7 @@
   </v-breadcrumbs>
 </template>
 
+
 <script>
 export default {
   props: {

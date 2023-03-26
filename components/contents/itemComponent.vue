@@ -47,6 +47,7 @@
             </v-carousel-item>
           </v-carousel>
           <nuxt-link
+           class="text-center"
             style="color:black;"
             to="/article"
           >
@@ -129,13 +130,13 @@ export default {
     }
 
     .row{
-      margin: 10px
+      margin: 10px;
+      display: grid;
     }
 
-    .row ::v-deep .v-carousel__controls {
-      background: none;
-      padding-top: 20px;
-    }
+    // .row ::v-deep .v-carousel__controls {
+    //   padding-top: 20px;
+    // }
 
     .v-card__subtitle, .v-card__text, .v-card__title {
         display: block;

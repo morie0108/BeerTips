@@ -1,9 +1,8 @@
 <template>
   <v-container
     fluid
-    class="yellow lighten-1"
   >
-    <h2>ビール紹介</h2>
+    <h2>コラム</h2>
     <v-row
       justify="center"
     >
@@ -47,6 +46,12 @@
               </v-card>
             </v-carousel-item>
           </v-carousel>
+          <nuxt-link
+            style="color:black;"
+            to="/article"
+          >
+          記事一覧
+          </nuxt-link>
         </v-row>
 
         <div v-else class="text-center">

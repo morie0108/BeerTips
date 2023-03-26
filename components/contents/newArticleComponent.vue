@@ -2,7 +2,7 @@
   <v-container
     fluid
   >
-    <h2>最新記事</h2>
+    <h2>ピックアップ</h2>
     <v-row
       justify="center"
       style="margin:30px auto;"
@@ -65,12 +65,6 @@
               </v-card>
             </v-slide-item>
           </v-slide-group>
-          <nuxt-link
-            style="color:black;"
-            to="/article"
-          >
-          記事一覧
-          </nuxt-link>
         </v-row>
 
         <!-- <v-row v-if="post.length">

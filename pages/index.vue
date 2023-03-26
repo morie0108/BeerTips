@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
     <headerImage />
-    <itemComponent />
-    <bunnerComponent />
     <newArticleComponent />
+    <bunnerComponent />
+    <itemComponent />
   </v-container>
 </template>
 

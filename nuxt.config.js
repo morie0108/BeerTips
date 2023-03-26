@@ -56,7 +56,7 @@ export default {
     '@nuxtjs/gtm',
   ],
     gtm: {
-    id: 'GTM-KSL32HK'
+      id: 'GTM-KSL32HK'
   },
   'google-gtag':{
    id: process.env.GAID,
